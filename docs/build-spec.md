@@ -1,19 +1,33 @@
 # Sightline — Build Spec (corpus #1: CRE deal room)
 
-The original design for the first corpus. The engine has since been
-generalised into a plugin-based document and spend audit engine — see
-`ARCHITECTURE.md` for the current shape. This spec is kept because the CRE
+The original design for the first corpus (a document set plus its rules). The engine has since been
+generalised into a plugin (drop-in domain module)-based document and spend audit engine — see
+`ARCHITECTURE.md` for the current shape. This spec is kept because the CRE (commercial real estate)
 corpus is still corpus #1 and its design choices carried over.
+
+> New to a term? Every acronym is spelled out the first time it appears, and all of them live in the [Glossary](../GLOSSARY.md).
+
+```mermaid
+flowchart LR
+  U["User question"] --> O["Orchestrator"]
+  O --> X["Extractor: deal sheet + citations"]
+  O --> K["Risk agent: cross-checks"]
+  O --> Q["Investor Q&A"]
+  O --> S["Summarizer: memos"]
+  K --> V{"Provable from the documents?"}
+  V -- yes --> F["verifiable finding + citation"]
+  V -- no --> H["judgment_required: handed to a human"]
+```
 
 ## 1. What this is
 
-A prototype that ingests a single real-estate **deal room** (a folder of
+A prototype that ingests a single real-estate **deal room (shared folder of deal documents)** (a folder of
 offering documents) and produces two kinds of value off the same corpus:
 
 - **Diligence side (internal):** extract a structured deal sheet, cross-check
-  facts across documents, flag risks and inconsistencies, draft a diligence
+  facts across documents, flag risks and inconsistencies, draft a diligence (pre-investment checks)
   memo.
-- **Investor side (IR/growth):** answer investor questions with citations,
+- **Investor side (IR (investor relations)/growth):** answer investor questions with citations,
   auto-draft an investor-facing summary.
 
 Same ingestion + retrieval pipeline, two audiences.
@@ -24,7 +38,7 @@ Same ingestion + retrieval pipeline, two audiences.
    should be a visible embodiment of the ideas in §3.
 2. **Synthetic data only.** No real deal, ever. All content is fictional
    (see §5). Confidential-safe, portable.
-3. **Legible over clever.** Plain Python + the Anthropic API + a small MCP
+3. **Legible over clever.** Plain Python + the Anthropic API (application programming interface) + a small MCP (Model Context Protocol)
    server. No heavyweight agent frameworks.
 4. **Two features must not be cut:** the **context inspector** and the
    **judgment boundary** (§3).
@@ -35,8 +49,8 @@ Same ingestion + retrieval pipeline, two audiences.
 | --- | --- |
 | "The agent is the file" | Each document becomes a first-class object with extracted structured facts + provenance (source doc, page/section). |
 | "Pathways to the file" | Retrieval is exposed as an MCP server with typed tools. |
-| "Context management is the game" | A visible context-inspector panel logs exactly what context each agent received, what was excluded, and token counts. |
-| "A workforce of agents" | An orchestrator plus specialists: Extractor, Risk/Underwriter, Investor Q&A, Summarizer. |
+| "Context management is the game" | A visible context-inspector panel logs exactly what context each agent received, what was excluded, and token (units AI models bill by) counts. |
+| "A workforce of agents" | An orchestrator plus specialists: Extractor, Risk/Underwriter, Investor Q&A (question and answer), Summarizer. |
 | "LLMs have no taste / judgment is the edge" | A judgment boundary: verifiable/computable questions get cited answers; the system refuses to fabricate verdicts on judgment-required items, surfacing them for a human instead. |
 
 ## 4. Technical design
@@ -44,11 +58,11 @@ Same ingestion + retrieval pipeline, two audiences.
 ### Stack
 - Python 3.12, `uv` for env/deps
 - Anthropic API (Claude); model configurable, key read from `ANTHROPIC_API_KEY`
-- MCP server: FastMCP
-- Ingestion: `pdfplumber` (text + tables), `pypdf` fallback
+- MCP server: FastMCP (Python library for MCP servers)
+- Ingestion: `pdfplumber` (PDF text and table reader), `pypdf` (simpler PDF reader) as fallback
 - Retrieval: keyword + simple in-memory chunk index (no vector DB needed for this corpus size)
-- Schema/validation: `pydantic`
-- UI: Streamlit (fast path); FastAPI + React added later (see ARCHITECTURE.md)
+- Schema/validation: `pydantic` (Python data-validation library)
+- UI (user interface): Streamlit (Python data-app library; fast path); FastAPI (Python web framework) + React (web UI library) added later (see ARCHITECTURE.md)
 
 ### MCP tools
 ```
@@ -91,25 +105,25 @@ Citation:    doc_id, location(page/section), snippet
 
 ## 5. Synthetic data pack — "Larkveil Residences"
 
-Fictional property: **Larkveil Residences — 148-unit multifamily value-add,
+Fictional property: **Larkveil Residences — 148-unit multifamily value-add (buy, improve, re-rent higher),
 in the fictional city of Marrowdale.** Figures are internally coherent except
 for deliberately planted issues.
 
 ### Documents (PDFs under `data/cre_dealroom/`)
 1. Offering Memorandum (OM)
-2. PPM excerpt (fees, risk factors, waterfall)
-3. T-12 operating statement
+2. PPM (private placement memorandum) excerpt (fees, risk factors, waterfall (profit-split order))
+3. T-12 (trailing 12 months of actuals) operating statement
 4. Rent roll
 5. Pro forma (5-year projection)
 6. Sponsor bio / track record
-7. PSA key terms
+7. PSA (purchase and sale agreement) key terms
 8. Market study excerpt
 
 ### Seeded inconsistencies (ground truth in `eval/seeded_issues.json`)
 1. **Fee mismatch:** 2.0% (OM summary) vs 2.75% (PPM fee schedule) — verifiable.
-2. **Exit cap too aggressive:** pro forma exit cap tighter than market study's prevailing cap — verifiable contradiction; "is that reasonable" follow-on is judgment_required.
-3. **Occupancy overstatement:** rent roll ~88% in-place vs pro forma assuming 94% stabilized with no lease-up bridge — verifiable.
-4. **Track-record spin** (optional): sponsor bio claims "never lost investor capital" but timeline implies a return-of-capital-only prior exit — judgment_required.
+2. **Exit cap too aggressive:** pro forma (projected future financials) exit cap tighter than market study's prevailing cap — verifiable contradiction; "is that reasonable" follow-on is judgment_required.
+3. **Occupancy overstatement:** rent roll (unit-by-unit rent list) ~88% occupied today vs pro forma assuming 94% once stabilized (steady-state), with no lease-up (filling vacant units) plan — verifiable.
+4. **Track-record spin** (optional): sponsor (deal organizer) bio claims "never lost investor capital" but timeline implies a return-of-capital-only prior exit — judgment_required.
 
 ## 6. Eval harness
 
@@ -121,7 +135,7 @@ measured, not asserted.
 
 **Built in this pass:** ingestion, DealSheet/Financials extraction with
 citations, cited investor Q&A, risk-flag list catching seeded issues, thin
-Streamlit UI, context inspector, eval harness.
+Streamlit UI, context inspector, eval (evaluation against known answers) harness.
 
 **Deliberately deferred (said out loud, not silently cut):** auth/multi-user,
 real connectors, FastAPI/React UI upgrade, multi-deal comparison, hosted

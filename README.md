@@ -2,21 +2,35 @@
 
 **An audit engine for document-heavy work where the numbers have to be right.** It reads contracts, invoices and deal documents in any layout, checks every line against the agreed terms, and hands you a list of problems. Each problem comes with the dollar amount, the exact file and row or page it came from, and a draft dispute note.
 
-> **Code computes, AI explains.** The AI reads messy documents and writes the explanations. Plain, tested code does every calculation. The AI cannot add a number to a finding: if its text contains a figure the code did not produce, that text is thrown away.
+> **Code computes, AI (artificial intelligence) explains.** The AI reads messy documents and writes the explanations. Plain, tested code does every calculation. The AI cannot add a number to a finding: if its text contains a figure the code did not produce, that text is thrown away.
+
+> New to a term? Every acronym is spelled out the first time it appears, and all of them live in the [Glossary](GLOSSARY.md).
+
+```mermaid
+flowchart LR
+  A["Your files: contract + invoices"] --> B["AI reads the layout"] --> C["Code checks every line"] --> D["AI explains, can't add numbers"] --> E["Findings: $ amount, file + row, dispute note"]
+```
+
+| Who | Does | Never does |
+| --- | --- | --- |
+| AI (small model) | reads messy headers, finds contract terms | calculates |
+| Code | validates, reconciles totals, computes every dollar | guesses |
+| AI (large model) | writes explanations and dispute notes | adds a number |
+| Person | decides `judgment_required` items | — |
 
 ---
 
 ## Where it came from, and where it works now
 
-Sightline started as a tool for **commercial real estate (CRE) investment diligence**: reading a deal room (offering memo, PPM, rent roll, pro forma, market study) and catching numbers that disagree between documents.
+Sightline started as a tool for **commercial real estate (CRE) investment diligence (pre-investment checks)**: reading a deal room (offering memo (OM, the sponsor's marketing summary), PPM (private placement memorandum), rent roll (unit-by-unit rent list), pro forma (projected future financials), market study) and catching numbers that disagree between documents.
 
-Spend audits have the same structure: a governing document, a pile of documents that should follow it, and a person who has to sign off. So the engine was split into a domain-neutral core plus one plugin per kind of document set:
+Spend audits have the same structure: a governing document, a pile of documents that should follow it, and a person who has to sign off. So the engine was split into a domain-neutral core plus one plugin (drop-in domain module) per kind of document set:
 
 | Use case | Governing document | Checked documents | Typical catches |
 | --- | --- | --- | --- |
-| CRE deal room *(corpus #1)* | PPM | OM, pro forma, rent roll, market study | fee mismatches, exit cap below market, occupancy jumps with no plan |
-| Parcel / carrier spend *(corpus #2)* | carrier rate agreement | invoices (CSV, Excel, PDF) | duplicate billing, wrong zone, DIM-weight errors, missed discounts, wrong fuel % |
-| Vendor / SaaS billing *(template)* | order form / MSA | monthly invoices | price drift, seat overcounts, extension errors |
+| CRE deal room *(corpus #1)* | PPM | OM (offering memorandum), pro forma, rent roll, market study | fee mismatches, exit cap rate (capitalization rate = income ÷ price) below market, occupancy jumps with no plan |
+| Parcel / carrier spend *(corpus #2)* | carrier rate agreement | invoices (CSV (comma-separated values), Excel, PDF (Portable Document Format)) | duplicate billing, wrong zone (distance band), DIM (dimensional)-weight errors, missed discounts, wrong fuel % (fuel surcharge percentage) |
+| Vendor / SaaS (software as a service) billing *(template)* | order form / MSA (master services agreement) | monthly invoices | price drift, seat overcounts, extension errors |
 
 A new domain is a config file, a data folder and a plugin file (see [`corpora/_template`](corpora/_template) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md#adding-a-corpus)).
 
@@ -57,7 +71,7 @@ Every finding is labelled one of two ways:
 
 ## What it caught
 
-Both corpora are **synthetic**: fictional companies, generated figures, and errors planted on purpose so the results can be scored. Numbers below come from `uv run python eval/run_eval.py`.
+Both corpora (document sets plus their rules) are **synthetic**: fictional companies, generated figures, and errors planted on purpose so the results can be scored. Numbers below come from `uv run python eval/run_eval.py`.
 
 ### Parcel invoices vs rate agreement (301 invoice lines across CSV, Excel and PDF)
 
@@ -74,6 +88,18 @@ Both corpora are **synthetic**: fictional companies, generated figures, and erro
 | Residential fee on a consignee that looks like a business | judgment_required | yes | (needs a human) |
 | $31.50 "large package" charge the contract doesn't price | judgment_required | yes | (needs a human) |
 
+```mermaid
+pie showData title Overbilling found by type (USD, synthetic invoices)
+  "Duplicate billing" : 26.11
+  "Wrong fuel %" : 23.40
+  "Missed discount" : 22.43
+  "Address correction billed twice" : 18.00
+  "Line total arithmetic" : 10.00
+  "Residential fee" : 4.85
+  "Billed weight" : 3.99
+  "Wrong zone" : 3.64
+```
+
 **10 of 10 caught, 0 false alarms, all 8 amounts correct to the cent.** Total verifiable overbilling found: **$112.42** on ~$11.5k of invoices.
 
 ### CRE deal room (synthetic "Larkveil Residences", 8 PDFs)
@@ -85,23 +111,23 @@ Both corpora are **synthetic**: fictional companies, generated figures, and erro
 | Year-1 occupancy 94% vs 87.8% today, no lease-up plan | verifiable | yes | 6.2-point gap |
 | "Never lost investor capital" vs a break-even exit | judgment_required | yes | (needs a human) |
 
-**4 of 4 caught. Precision 0.80**: one extra judgment item ("cap rates are widening") was surfaced that wasn't planted. It's a fair point, but the score counts it against us.
+**4 of 4 caught. Precision (share of flags that were real) 0.80**: one extra judgment item ("cap rates are widening") was surfaced that wasn't planted. It's a fair point, but the score counts it against us.
 
 ### Read these numbers carefully
 
-- **These results were produced offline, with no AI model called.** No API key was available when they were recorded. Column mapping ran on the built-in header-matching fallback, and the CRE "AI extraction" was a hand-recorded answer file, checked against the PDFs the same way live output is. So these scores test the **checking and arithmetic layer**, not a model. Add a key and re-run to score a real model; expect it to differ.
+- **These results were produced offline, with no AI model called.** No API (application programming interface) key was available when they were recorded. Column mapping ran on the built-in header-matching fallback, and the CRE "AI extraction" was a hand-recorded answer file, checked against the PDFs the same way live output is. So these scores test the **checking and arithmetic layer**, not a model. Add a key and re-run to score a real model; expect it to differ.
 - **The planted errors and the rules were written by the same author.** A perfect score on your own test is the minimum bar, not proof. Real invoices are messier (see Known limits).
-- **Under stress, recall drops to 1 of 10**, on purpose. `eval/stress_parcel.py` renames every CSV header to names the offline mapper has never seen and changes one invoice's stated total by $1. Both files are **rejected rather than trusted**, so their issues are missed. With an AI key the renamed headers should map; the tampered total will still be rejected, because no mapping can make a wrong total reconcile.
+- **Under stress, recall (share of real problems caught) drops to 1 of 10**, on purpose. `eval/stress_parcel.py` renames every CSV header to names the offline mapper has never seen and changes one invoice's stated total by $1. Both files are **rejected rather than trusted**, so their issues are missed. With an AI key the renamed headers should map; the tampered total will still be rejected, because no mapping can make a wrong total reconcile.
 
 ## Quick start
 
-You need [uv](https://docs.astral.sh/uv/) (one install). Then, from the repo folder:
+You need [uv](https://docs.astral.sh/uv/) (a fast Python package manager; one install). Then, from the repo folder:
 
 ```bash
 uv run sightline audit parcel_invoices
 ```
 
-That installs dependencies on first run, audits the bundled synthetic invoices, and prints each finding with its citation and the AI token cost (zero offline). More:
+That installs dependencies on first run, audits the bundled synthetic invoices, and prints each finding with its citation and the AI token (units AI models bill by) cost (zero offline). More:
 
 ```bash
 uv run python eval/run_eval.py              # precision/recall table for both corpora
@@ -116,21 +142,21 @@ cp .env.example .env                        # add ANTHROPIC_API_KEY or GEMINI_AP
 
 | Need | Here |
 | --- | --- |
-| API | FastAPI (`api/main.py`): `POST /audit`, `GET /health` |
-| Warehouse | DuckDB locally; tables and views written in SQL that also runs on BigQuery ([how to switch](docs/RUNBOOK.md#switching-to-bigquery)) |
-| Models | Claude or Gemini, chosen per agent in `agents/llm.py`; cheap extraction on a small model, reasoning on a large one; token cost printed every run |
-| UI | React + Vite page to upload files and browse findings with citations |
-| CI | GitHub Actions: lint, tests, both evals (AI calls replaced by offline stand-ins when no key is set) |
+| API | FastAPI (Python web framework; `api/main.py`): `POST /audit`, `GET /health` |
+| Warehouse | DuckDB (embedded analytics database) locally; tables and views written in SQL (Structured Query Language) that also runs on BigQuery ([how to switch](docs/RUNBOOK.md#switching-to-bigquery)) |
+| Models | Claude (Anthropic) or Gemini (Google) large language models (LLMs), chosen per agent in `agents/llm.py`; cheap extraction on a small model, reasoning on a large one; token cost printed every run |
+| UI (user interface) | React (web UI library) + Vite (web build tool) page to upload files and browse findings with citations |
+| CI (continuous integration) | GitHub Actions (GitHub's automation service): lint, tests, both evals (evaluations against known answers; AI calls replaced by offline stand-ins when no key is set) |
 
 ## Known limits
 
-- **Synthetic data only.** Real carrier invoices include credits, multi-piece shipments, international duties, weekly fuel tables and dozens of accessorials this demo does not model.
+- **Synthetic data only.** Real carrier invoices include credits, multi-piece shipments, international duties, weekly fuel tables and dozens of accessorials (add-on fees) this demo does not model.
 - **Contract terms are read by a clause and table parser**, then verified against the page text. An AI contract extractor feeding the same verification step is the obvious next step; it isn't built yet.
 - **The offline column mapper only knows header names it has synonyms for.** Unfamiliar layouts need an AI key, or they get rejected (safely).
-- **The CRE fact list is fixed** (fees, occupancy, cap rates, NOI, price). Facts outside it are not cross-checked.
+- **The CRE fact list is fixed** (fees, occupancy, cap rates, NOI (net operating income), price). Facts outside it are not cross-checked.
 - **Judgment items depend on the model.** Offline, they come from a recorded file; with a key, what gets surfaced will vary from run to run.
 - **Single-tenant demo.** No auth, no multi-user, files are processed in a temp directory and not kept. Don't upload confidential data to a shared deployment.
-- **GRI scenario** applies one percentage to every list rate. Real increases differ by service and zone.
+- **GRI (general rate increase) scenario** applies one percentage to every list rate. Real increases differ by service and zone.
 
 ## Repo map
 
@@ -144,6 +170,7 @@ eval/           seeded ground truth, eval runner, stress test, offline fixtures
 web/            React upload/browse page
 app/, server/   original Streamlit explorer and MCP server for the CRE corpus
 docs/           ARCHITECTURE, RUNBOOK, design notes
+GLOSSARY.md     every acronym and term, defined
 ```
 
 ## License
