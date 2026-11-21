@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 944" width="400" height="944" role="img" aria-label="Troubleshooting: find the message the audit printed, apply the matching fix.">
+<title>Troubleshooting: find the message the audit printed, apply the matching fix.</title>
+<rect width="400" height="944" rx="16" fill="#0D1117"/>
+<text x="14.0" y="40.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#E6EDF3" text-anchor="start">Audit failed or looks</text>
+<text x="14.0" y="66.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#E6EDF3" text-anchor="start">wrong?</text>
+<text x="14.0" y="90.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#9DA7B3" text-anchor="start">Match the message it printed to its fix.</text>
+<rect x="60.0" y="114.0" width="326.0" height="126.0" rx="12" fill="#3B1416" stroke="#F87171" stroke-width="2"/>
+<text x="72.0" y="140.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="700" fill="#F87171" text-anchor="start">file rejected: unknown headers</text>
+<text x="74.0" y="166.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">Add an AI key, or add header</text>
+<text x="74.0" y="190.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">synonyms to the corpus</text>
+<text x="74.0" y="214.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">schema</text>
+<rect x="60.0" y="250.0" width="326.0" height="102.0" rx="12" fill="#3B1416" stroke="#F87171" stroke-width="2"/>
+<text x="72.0" y="276.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="700" fill="#F87171" text-anchor="start">file rejected: totals off</text>
+<text x="74.0" y="302.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">The input is wrong. Fix the file;</text>
+<text x="74.0" y="326.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">never loosen the check</text>
+<rect x="60.0" y="362.0" width="326.0" height="102.0" rx="12" fill="#3B1416" stroke="#F87171" stroke-width="2"/>
+<text x="72.0" y="388.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="700" fill="#F87171" text-anchor="start">No rate agreement found</text>
+<text x="74.0" y="414.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">Put the contract_marker phrase</text>
+<text x="74.0" y="438.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">on page 1 of the contract PDF</text>
+<rect x="60.0" y="474.0" width="326.0" height="126.0" rx="12" fill="#3B1416" stroke="#F87171" stroke-width="2"/>
+<text x="72.0" y="500.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="700" fill="#F87171" text-anchor="start">terms failed verification</text>
+<text x="74.0" y="526.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">The named term is missing,</text>
+<text x="74.0" y="550.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">out of range, or not on its cited</text>
+<text x="74.0" y="574.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">page</text>
+<rect x="60.0" y="610.0" width="326.0" height="126.0" rx="12" fill="#1F2630" stroke="#8B949E" stroke-width="2"/>
+<text x="72.0" y="636.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="700" fill="#8B949E" text-anchor="start">cost n/a</text>
+<text x="74.0" y="662.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">Set</text>
+<text x="74.0" y="686.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">SIGHTLINE_PRICE_&lt;MODEL&gt; in</text>
+<text x="74.0" y="710.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">your .env file</text>
+<rect x="60.0" y="746.0" width="326.0" height="126.0" rx="12" fill="#12301F" stroke="#4ADE80" stroke-width="2"/>
+<text x="72.0" y="772.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="700" fill="#4ADE80" text-anchor="start">llm text rejected</text>
+<text x="74.0" y="798.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">Expected: the AI wrote a</text>
+<text x="74.0" y="822.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">number code didn&#x27;t make, so</text>
+<text x="74.0" y="846.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="19" font-weight="400" fill="#E6EDF3" text-anchor="start">the template was used</text>
+<path d="M36,104 L36,771" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M36,139 L51,139" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M49,132 L49,146 L60,139 Z" fill="#8B949E"/>
+<path d="M36,275 L51,275" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M49,268 L49,282 L60,275 Z" fill="#8B949E"/>
+<path d="M36,387 L51,387" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M49,380 L49,394 L60,387 Z" fill="#8B949E"/>
+<path d="M36,499 L51,499" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M49,492 L49,506 L60,499 Z" fill="#8B949E"/>
+<path d="M36,635 L51,635" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M49,628 L49,642 L60,635 Z" fill="#8B949E"/>
+<path d="M36,771 L51,771" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M49,764 L49,778 L60,771 Z" fill="#8B949E"/>
+<text x="14.0" y="906.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#9DA7B3" text-anchor="start">Rejected files are listed in</text>
+<text x="14.0" y="930.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#9DA7B3" text-anchor="start">runs/rejected_mappings.jsonl</text>
+</svg>

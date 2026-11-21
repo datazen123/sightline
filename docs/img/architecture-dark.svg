@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 858" width="400" height="858" role="img" aria-label="Architecture: CLI, API or web page feed ingest, mapping, corpus plugin, explainer, then DuckDB or BigQuery.">
+<title>Architecture: CLI, API or web page feed ingest, mapping, corpus plugin, explainer, then DuckDB or BigQuery.</title>
+<rect width="400" height="858" rx="16" fill="#0D1117"/>
+<text x="14.0" y="40.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#E6EDF3" text-anchor="start">Architecture</text>
+<text x="14.0" y="64.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#9DA7B3" text-anchor="start">One engine core. Domain knowledge</text>
+<text x="14.0" y="88.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#9DA7B3" text-anchor="start">lives in a corpus plugin.</text>
+<rect x="14.0" y="102.0" width="55.5" height="30.0" rx="15" fill="#2A2045" stroke="#B794F6" stroke-width="1.5"/>
+<circle cx="29" cy="117" r="5" fill="#B794F6"/>
+<text x="40.0" y="123.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#E6EDF3" text-anchor="start">AI</text>
+<rect x="77.5" y="102.0" width="83.8" height="30.0" rx="15" fill="#12301F" stroke="#4ADE80" stroke-width="1.5"/>
+<circle cx="92.484375" cy="117" r="5" fill="#4ADE80"/>
+<text x="103.5" y="123.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#E6EDF3" text-anchor="start">Code</text>
+<rect x="169.3" y="102.0" width="111.6" height="30.0" rx="15" fill="#0C2A3D" stroke="#38BDF8" stroke-width="1.5"/>
+<circle cx="184.328125" cy="117" r="5" fill="#38BDF8"/>
+<text x="195.3" y="123.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#E6EDF3" text-anchor="start">Storage</text>
+<rect x="14.0" y="148.0" width="117.3" height="76.0" rx="12" fill="#1F2630" stroke="#8B949E" stroke-width="2"/>
+<text x="72.7" y="195.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">CLI</text>
+<rect x="141.3" y="148.0" width="117.3" height="76.0" rx="12" fill="#1F2630" stroke="#8B949E" stroke-width="2"/>
+<text x="200.0" y="195.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">API</text>
+<rect x="268.7" y="148.0" width="117.3" height="76.0" rx="12" fill="#1F2630" stroke="#8B949E" stroke-width="2"/>
+<text x="327.3" y="182.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Web</text>
+<text x="327.3" y="208.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">page</text>
+<rect x="14.0" y="264.0" width="372.0" height="50.0" rx="12" fill="#12301F" stroke="#4ADE80" stroke-width="2"/>
+<text x="200.0" y="298.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Ingest: CSV · Excel · PDF → tables</text>
+<path d="M72.7,224.0 L72.7,244.0 L200.0,244.0 L200.0,255.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M193.0,253.0 L207.0,253.0 L200.0,264.0 Z" fill="#8B949E"/>
+<path d="M200.0,224.0 L200.0,255.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M193.0,253.0 L207.0,253.0 L200.0,264.0 Z" fill="#8B949E"/>
+<path d="M327.3,224.0 L327.3,244.0 L200.0,244.0 L200.0,255.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M193.0,253.0 L207.0,253.0 L200.0,264.0 Z" fill="#8B949E"/>
+<rect x="14.0" y="354.0" width="372.0" height="102.0" rx="12" fill="#12301F" stroke="#4ADE80" stroke-width="2"/>
+<text x="28.0" y="381.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#4ADE80" text-anchor="start">+ AI · SMALL MODEL</text>
+<text x="200.0" y="414.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Mapping: AI proposes, code</text>
+<text x="200.0" y="440.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">validates</text>
+<path d="M200.0,314.0 L200.0,345.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M193.0,343.0 L207.0,343.0 L200.0,354.0 Z" fill="#8B949E"/>
+<rect x="14.0" y="496.0" width="372.0" height="76.0" rx="12" fill="#12301F" stroke="#4ADE80" stroke-width="2"/>
+<text x="200.0" y="530.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Corpus plugin: parse contract, run</text>
+<text x="200.0" y="556.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">rules</text>
+<path d="M200.0,456.0 L200.0,487.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M193.0,485.0 L207.0,485.0 L200.0,496.0 Z" fill="#8B949E"/>
+<rect x="14.0" y="612.0" width="372.0" height="76.0" rx="12" fill="#12301F" stroke="#4ADE80" stroke-width="2"/>
+<text x="28.0" y="639.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#4ADE80" text-anchor="start">+ AI · LARGE MODEL</text>
+<text x="200.0" y="672.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Explainer with number guard</text>
+<path d="M200.0,572.0 L200.0,603.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M193.0,601.0 L207.0,601.0 L200.0,612.0 Z" fill="#8B949E"/>
+<rect x="14.0" y="728.0" width="372.0" height="50.0" rx="12" fill="#0C2A3D" stroke="#38BDF8" stroke-width="2"/>
+<text x="200.0" y="762.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">DuckDB now · BigQuery later</text>
+<path d="M200.0,688.0 L200.0,719.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M193.0,717.0 L207.0,717.0 L200.0,728.0 Z" fill="#8B949E"/>
+<text x="14.0" y="820.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#9DA7B3" text-anchor="start">AI calls go through the model router:</text>
+<text x="14.0" y="844.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#9DA7B3" text-anchor="start">Claude · Gemini · offline mock</text>
+</svg>

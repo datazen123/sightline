@@ -2,25 +2,10 @@
 
 > New to a term? Every acronym is spelled out the first time it appears, and all of them live in the [Glossary](../GLOSSARY.md).
 
-```mermaid
-flowchart TB
-  subgraph Entry["Ways in"]
-    CLI2["CLI: sightline audit"]
-    API2["FastAPI: POST /audit"]
-    WEB["React upload page"]
-  end
-  subgraph Core["Engine core (domain-neutral)"]
-    ING["Ingest: CSV / XLSX / PDF to tables"]
-    MAP["Mapping: propose, then validate"]
-    PLG["Corpus plugin: parse contract + run rules"]
-    EXP["Explainer with number guard"]
-  end
-  LLM2["Model router: Claude / Gemini / offline mock"]
-  DB2[("DuckDB now, BigQuery later")]
-  Entry --> ING --> MAP --> PLG --> EXP --> DB2
-  MAP -. small model .-> LLM2
-  EXP -. large model .-> LLM2
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="img/architecture-dark.svg">
+  <img src="img/architecture-light.svg" width="400" alt="Architecture: CLI, API or web page feed ingest, mapping, corpus plugin, explainer, then DuckDB or BigQuery.">
+</picture>
 
 ## The one rule
 

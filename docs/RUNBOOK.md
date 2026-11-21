@@ -51,17 +51,10 @@ Errors: `400` unknown corpus (a document set plus its rules), `413` too many/too
 
 ## Troubleshooting
 
-```mermaid
-flowchart TD
-  A["Audit failed or looks wrong"] --> B{"What does the output say?"}
-  B -- "file rejected" --> C["Open runs/rejected_mappings.jsonl"] --> C2{"Reason?"}
-  C2 -- "unknown headers" --> C3["Add an AI key, or add header synonyms to the corpus schema"]
-  C2 -- "totals don't reconcile" --> C4["The input is wrong: fix the file. Never loosen the check"]
-  B -- "No rate agreement found" --> D["Contract PDF needs the contract_marker phrase on page 1"]
-  B -- "terms failed verification" --> E["The named term is missing, out of range, or not on its cited page"]
-  B -- "cost n/a" --> F["Set SIGHTLINE_PRICE_<MODEL>"]
-  B -- "llm text rejected" --> G["Expected: the AI wrote a number code didn't produce, so the template was used"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="img/runbook-dark.svg">
+  <img src="img/runbook-light.svg" width="400" alt="Troubleshooting: find the message the audit printed, apply the matching fix.">
+</picture>
 
 
 - **A file was rejected.** `runs/rejected_mappings.jsonl` (or the `rejected_mappings` table)

@@ -2,37 +2,10 @@
 
 Every acronym and specialist term used in this repository, in plain language.
 
-```mermaid
-mindmap
-  root((Sightline terms))
-    Real estate
-      CRE
-      PPM / OM
-      NOI
-      Cap rate
-      Rent roll
-    Shipping
-      DIM weight
-      Zone
-      Fuel surcharge
-      Accessorial
-      GRI
-    Software and data
-      API
-      CI
-      DuckDB / BigQuery
-      React / Vite
-    AI
-      LLM
-      Token
-      MCP
-      Eval
-    This project
-      verifiable
-      judgment_required
-      Corpus / plugin
-      Number guard
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/glossary-dark.svg">
+  <img src="docs/img/glossary-light.svg" width="400" alt="Glossary map: real estate, shipping, software and data, AI, and project terms.">
+</picture>
 
 ## Real estate (corpus #1)
 

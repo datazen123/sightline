@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 676" width="400" height="676" role="img" aria-label="Governing document and follow-on documents are compared; outcomes are verifiable finding, judgment_required, or clean.">
+<title>Governing document and follow-on documents are compared; outcomes are verifiable finding, judgment_required, or clean.</title>
+<rect width="400" height="676" rx="16" fill="#FFFFFF"/>
+<text x="14.0" y="40.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#0F172A" text-anchor="start">The problem shape</text>
+<text x="14.0" y="64.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#475569" text-anchor="start">A governing document, and documents</text>
+<text x="14.0" y="88.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#475569" text-anchor="start">that should follow it.</text>
+<rect x="14.0" y="102.0" width="180.0" height="128.0" rx="12" fill="#F1F5F9" stroke="#475569" stroke-width="2"/>
+<text x="28.0" y="129.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#475569" text-anchor="start">RULES</text>
+<text x="104.0" y="162.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Governing</text>
+<text x="104.0" y="188.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">doc: contract ·</text>
+<text x="104.0" y="214.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">PPM · MSA</text>
+<rect x="206.0" y="102.0" width="180.0" height="128.0" rx="12" fill="#F1F5F9" stroke="#475569" stroke-width="2"/>
+<text x="220.0" y="129.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#475569" text-anchor="start">SHOULD FOLLOW</text>
+<text x="296.0" y="162.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Invoices · pro</text>
+<text x="296.0" y="188.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">forma ·</text>
+<text x="296.0" y="214.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">statements</text>
+<rect x="14.0" y="274.0" width="372.0" height="50.0" rx="6" fill="#DCFCE7" stroke="#15803D" stroke-width="2.5"/>
+<path d="M368.0,283.0 L377.0,292.0 L368.0,301.0 L359.0,292.0 Z" fill="#15803D"/>
+<text x="200.0" y="308.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#0F172A" text-anchor="middle">Do the numbers agree?</text>
+<path d="M104.0,230.0 L104.0,252.0 L200.0,252.0 L200.0,265.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M193.0,263.0 L207.0,263.0 L200.0,274.0 Z" fill="#64748B"/>
+<path d="M296.0,230.0 L296.0,252.0 L200.0,252.0 L200.0,265.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M193.0,263.0 L207.0,263.0 L200.0,274.0 Z" fill="#64748B"/>
+<rect x="44.0" y="354.0" width="342.0" height="102.0" rx="12" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
+<text x="58.0" y="381.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#B45309" text-anchor="start">NO, PROVABLY</text>
+<text x="215.0" y="414.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">verifiable finding, with its</text>
+<text x="215.0" y="440.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">dollar amount</text>
+<path d="M24,379.0 L35,379.0" stroke="#64748B" stroke-width="2.5"/>
+<path d="M33,372.0 L33,386.0 L44,379.0 Z" fill="#64748B"/>
+<rect x="44.0" y="470.0" width="342.0" height="102.0" rx="12" fill="#DBEAFE" stroke="#1D4ED8" stroke-width="2"/>
+<text x="58.0" y="497.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#1D4ED8" text-anchor="start">UNCLEAR</text>
+<text x="215.0" y="530.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">judgment_required: a person</text>
+<text x="215.0" y="556.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">decides</text>
+<path d="M24,495.0 L35,495.0" stroke="#64748B" stroke-width="2.5"/>
+<path d="M33,488.0 L33,502.0 L44,495.0 Z" fill="#64748B"/>
+<rect x="44.0" y="586.0" width="342.0" height="76.0" rx="12" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+<text x="58.0" y="613.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#15803D" text-anchor="start">YES</text>
+<text x="215.0" y="646.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">clean, nothing to report</text>
+<path d="M24,611.0 L35,611.0" stroke="#64748B" stroke-width="2.5"/>
+<path d="M33,604.0 L33,618.0 L44,611.0 Z" fill="#64748B"/>
+<path d="M200.0,324.0 L200.0,339.0 L24,339.0 L24,611.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+</svg>
