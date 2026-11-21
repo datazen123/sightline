@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    env:
+      # No secrets are configured, so every LLM step runs on the offline
+      # stand-ins. Add ANTHROPIC_API_KEY / GEMINI_API_KEY as repository
+      # secrets and expose them here to run the evals against a real model.
+      SIGHTLINE_PROVIDER: ${{ secrets.ANTHROPIC_API_KEY != '' && 'anthropic' || 'mock' }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+      - run: uv python install 3.12
+      - run: uv sync --frozen
+      - name: Lint
+        run: uv run ruff check .
+      - name: Tests
+        run: uv run pytest -q
+      - name: Eval (both corpora)
+        # Offline mode must stay at full recall: it guards the deterministic layer.
+        run: uv run python eval/run_eval.py --min-recall 1.0
+      - name: Ingestion stress test (report only)
+        run: uv run python eval/stress_parcel.py
+      - name: GRI scenario smoke test
+        run: uv run sightline scenario gri --pct 5.9
+
+  web:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build

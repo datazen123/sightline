@@ -1,0 +1,8 @@
+name = "parcel_invoices"
+title = "Carrier invoices vs rate agreement (parcel spend audit)"
+plugin = "corpora.parcel_invoices.plugin:ParcelInvoiceAudit"
+data_dir = "data/parcel"
+seeded_issues = "eval/seeded_issues_parcel.json"
+accepts = [".csv", ".xlsx", ".pdf"]
+# A file whose first page contains this phrase is treated as the contract.
+contract_marker = "rate agreement"

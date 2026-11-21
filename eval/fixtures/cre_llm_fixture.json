@@ -1,0 +1,152 @@
+{
+  "_note": "Hand-recorded stand-in for the LLM extractor and judgment pass, used only when no API key is set. Every snippet is verified against the PDF text at load time exactly like live LLM output. Scores produced from this fixture measure the deterministic layer, not a model.",
+  "extract_cre_facts": {
+    "facts": [
+      {
+        "fact": "purchase_price",
+        "value": 27800000,
+        "doc_id": "offering_memorandum",
+        "page": 1,
+        "snippet": "Purchase price: $27,800,000"
+      },
+      {
+        "fact": "purchase_price",
+        "value": 27800000,
+        "doc_id": "psa_key_terms",
+        "page": 1,
+        "snippet": "Purchase price: $27,800,000"
+      },
+      {
+        "fact": "acquisition_fee_pct",
+        "value": 2.0,
+        "doc_id": "offering_memorandum",
+        "page": 1,
+        "snippet": "Acquisition fee: 2.0% of purchase price"
+      },
+      {
+        "fact": "acquisition_fee_pct",
+        "value": 2.75,
+        "doc_id": "ppm_excerpt",
+        "page": 1,
+        "snippet": "Acquisition fee: 2.75% of purchase price, payable at closing"
+      },
+      {
+        "fact": "asset_management_fee_pct",
+        "value": 1.5,
+        "doc_id": "offering_memorandum",
+        "page": 1,
+        "snippet": "Asset management fee: 1.5% of invested equity, annually"
+      },
+      {
+        "fact": "asset_management_fee_pct",
+        "value": 1.5,
+        "doc_id": "ppm_excerpt",
+        "page": 1,
+        "snippet": "Asset management fee: 1.5% of invested equity, payable annually"
+      },
+      {
+        "fact": "disposition_fee_pct",
+        "value": 1.0,
+        "doc_id": "offering_memorandum",
+        "page": 1,
+        "snippet": "Disposition fee: 1.0% of gross sale price"
+      },
+      {
+        "fact": "disposition_fee_pct",
+        "value": 1.0,
+        "doc_id": "ppm_excerpt",
+        "page": 1,
+        "snippet": "Disposition fee: 1.0% of gross sale price, payable at disposition"
+      },
+      {
+        "fact": "in_place_occupancy_pct",
+        "value": 87.8,
+        "doc_id": "rent_roll",
+        "page": 1,
+        "snippet": "In-place physical occupancy: 87.8% (~88%)"
+      },
+      {
+        "fact": "in_place_occupancy_pct",
+        "value": 87.8,
+        "doc_id": "t12_operating_statement",
+        "page": 1,
+        "snippet": "Trailing average economic occupancy: 87.8%"
+      },
+      {
+        "fact": "proforma_year1_occupancy_pct",
+        "value": 94,
+        "doc_id": "pro_forma",
+        "page": 1,
+        "snippet": "Year 1 stabilized occupancy assumption: 94%"
+      },
+      {
+        "fact": "proforma_year1_occupancy_pct",
+        "value": 94,
+        "doc_id": "offering_memorandum",
+        "page": 1,
+        "snippet": "targets stabilized occupancy of 94% by the end of Year 1"
+      },
+      {
+        "fact": "exit_cap_rate_pct",
+        "value": 5.0,
+        "doc_id": "pro_forma",
+        "page": 1,
+        "snippet": "Exit cap rate: 5.0%"
+      },
+      {
+        "fact": "market_cap_rate_low_pct",
+        "value": 5.5,
+        "doc_id": "market_study",
+        "page": 1,
+        "snippet": "currently range from 5.5% to 6.0%"
+      },
+      {
+        "fact": "market_cap_rate_high_pct",
+        "value": 6.0,
+        "doc_id": "market_study",
+        "page": 1,
+        "snippet": "currently range from 5.5% to 6.0%"
+      },
+      {
+        "fact": "year5_noi",
+        "value": 1520500,
+        "doc_id": "pro_forma",
+        "page": 1,
+        "snippet": "Year 5 NOI: $1,520,500"
+      }
+    ]
+  },
+  "surface_judgment_items": {
+    "items": [
+      {
+        "topic": "track_record",
+        "title": "'Never lost investor capital' framing vs a return-of-capital-only exit",
+        "what_to_weigh": "The sponsor bio says the firm has never lost investor capital, while the track record lists Brindlecrest Apartments as a full return of capital with no profit. The statement is technically true; a reviewer must decide whether the framing overstates the record.",
+        "evidence": [
+          {
+            "doc_id": "sponsor_bio",
+            "page": 1,
+            "snippet": "has never lost investor capital across its 11 realized exits"
+          },
+          {
+            "doc_id": "sponsor_bio",
+            "page": 1,
+            "snippet": "Brindlecrest Apartments 2016 2019"
+          }
+        ]
+      },
+      {
+        "topic": "market_timing",
+        "title": "Cap rates are widening during the hold",
+        "what_to_weigh": "The market study notes cap rates widened over the trailing 12 months. Whether that trend continues to exit is a market-timing judgment.",
+        "evidence": [
+          {
+            "doc_id": "market_study",
+            "page": 1,
+            "snippet": "Cap rates have widened modestly over the trailing 12 months"
+          }
+        ]
+      }
+    ]
+  }
+}
