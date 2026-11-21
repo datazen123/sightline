@@ -1,0 +1,6 @@
+name = "cre_dealroom"
+title = "CRE deal room cross-check (synthetic Larkveil Residences)"
+plugin = "corpora.cre_dealroom.plugin:CreDealRoomAudit"
+data_dir = "data/cre_dealroom"
+seeded_issues = "eval/seeded_issues.json"
+accepts = [".pdf"]

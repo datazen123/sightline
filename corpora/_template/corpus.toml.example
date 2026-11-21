@@ -1,0 +1,8 @@
+# Copy this folder to corpora/<your_corpus>/, rename this file to corpus.toml,
+# and put sample files in data/<your_corpus>/. Nothing else needs registering.
+name = "vendor_billing"
+title = "SaaS invoices vs order form"
+plugin = "corpora.vendor_billing.plugin:VendorBillingAudit"
+data_dir = "data/vendor_billing"
+seeded_issues = "eval/seeded_issues_vendor_billing.json"
+accepts = [".csv", ".xlsx", ".pdf"]

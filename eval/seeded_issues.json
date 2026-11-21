@@ -1,0 +1,108 @@
+{
+  "corpus": "cre_dealroom",
+  "note": "Synthetic. Fictional deal; issues planted by data/generate_cre_dealroom.py.",
+  "issues": [
+    {
+      "id": "fee_mismatch",
+      "title": "Acquisition fee mismatch between OM and PPM",
+      "severity": "high",
+      "category": "fees",
+      "classification": "verifiable",
+      "expected_finding": "The Offering Memorandum states a 2.0% acquisition fee, but the PPM fee schedule (the governing document) states 2.75%. On a $27,800,000 purchase price that is a $208,500 difference.",
+      "evidence": [
+        {
+          "doc_id": "01_offering_memorandum",
+          "location": "Fee Summary",
+          "quote": "Acquisition fee: 2.0% of purchase price"
+        },
+        {
+          "doc_id": "02_ppm_excerpt",
+          "location": "Fee Schedule",
+          "quote": "Acquisition fee: 2.75% of purchase price, payable at closing"
+        }
+      ],
+      "rule": "fact_conflict",
+      "keys": [
+        "acquisition_fee_pct"
+      ],
+      "expected_amount_usd": 208500.0
+    },
+    {
+      "id": "exit_cap_vs_market",
+      "title": "Pro forma exit cap rate is tighter than the market study's prevailing cap rate",
+      "severity": "high",
+      "category": "valuation",
+      "classification": "verifiable",
+      "note": "The contradiction itself (5.0% vs. the 5.5-6.0% market range) is verifiable. Whether 5.0% is an unreasonable assumption to underwrite to is judgment_required.",
+      "expected_finding": "The pro forma applies a 5.0% exit cap rate, while the market study reports prevailing cap rates of 5.5-6.0% (midpoint 5.75%) for comparable stabilized value-add assets in the same submarket. Using the market midpoint instead of 5.0% would reduce the projected Year-5 exit value from $30,410,000 to roughly $26,443,000 on the same NOI.",
+      "evidence": [
+        {
+          "doc_id": "05_pro_forma",
+          "location": "Key Assumptions / Exit Valuation",
+          "quote": "Exit cap rate: 5.0%"
+        },
+        {
+          "doc_id": "08_market_study",
+          "location": "Cap Rate Environment",
+          "quote": "prevailing cap rates for stabilized value-add multifamily assets in the North Marrowdale submarket currently range from 5.5% to 6.0%, with a midpoint of approximately 5.75%"
+        }
+      ],
+      "rule": "exit_cap_below_market",
+      "keys": [
+        "exit_cap_rate_pct"
+      ],
+      "expected_amount_usd": 3966522.0
+    },
+    {
+      "id": "occupancy_overstatement",
+      "title": "Pro forma Year-1 occupancy assumption has no lease-up bridge from current in-place occupancy",
+      "severity": "medium",
+      "category": "operations",
+      "classification": "verifiable",
+      "expected_finding": "The rent roll shows current in-place physical occupancy of 87.8% (130/148 units). The pro forma assumes 94% stabilized occupancy starting in Year 1, with no explicit lease-up timeline, turnover downtime, or associated cost bridge shown between the two figures.",
+      "evidence": [
+        {
+          "doc_id": "04_rent_roll",
+          "location": "Occupancy Summary",
+          "quote": "In-place physical occupancy: 87.8% (~88%)"
+        },
+        {
+          "doc_id": "05_pro_forma",
+          "location": "Key Assumptions",
+          "quote": "Year 1 stabilized occupancy assumption: 94%"
+        }
+      ],
+      "rule": "occupancy_gap_unbridged",
+      "keys": [
+        "occupancy"
+      ],
+      "expected_amount_usd": null
+    },
+    {
+      "id": "track_record_spin",
+      "title": "Sponsor's \"never lost investor capital\" claim glosses over a return-of-capital-only exit",
+      "severity": "low",
+      "category": "sponsor_quality",
+      "classification": "judgment_required",
+      "expected_finding": "The sponsor bio states Vantrel 'has never lost investor capital across its 11 realized exits.' The track record table shows the Brindlecrest Apartments exit (2016-2019) returned only investor capital with no profit distribution due to capex overruns. That statement is technically true but the framing implies a stronger track record than a break-even outcome represents. Whether this is meaningfully misleading is a judgment call, not a factual error.",
+      "evidence": [
+        {
+          "doc_id": "06_sponsor_bio",
+          "location": "Track Record Highlight",
+          "quote": "Vantrel Residential Partners has never lost investor capital across its 11 realized exits"
+        },
+        {
+          "doc_id": "06_sponsor_bio",
+          "location": "Selected Prior Transactions",
+          "quote": "Brindlecrest Apartments | 2016 | 2019 | Full return of capital; no profit distribution due to capex overruns"
+        }
+      ],
+      "rule": "judgment",
+      "keys": [
+        "track_record"
+      ],
+      "expected_amount_usd": null
+    }
+  ],
+  "deal": "Larkveil Residences"
+}
