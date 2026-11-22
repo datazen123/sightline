@@ -7,8 +7,8 @@
 > New to a term? Every acronym is spelled out the first time it appears, and all of them live in the [Glossary](GLOSSARY.md).
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/overview-dark.svg">
-  <img src="docs/img/overview-light.svg" width="400" alt="How Sightline works: your files, AI reads, code checks, AI explains, findings.">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/overview-dark.png">
+  <img src="docs/img/overview-light.png" width="400" alt="How Sightline works: your files, AI reads, code checks, AI explains, findings.">
 </picture>
 
 | Who | Does | Never does |
@@ -37,13 +37,13 @@ A new domain is a config file, a data folder and a plugin file (see [`corpora/_t
 ## How it works
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/read-check-dark.svg">
-  <img src="docs/img/read-check-light.svg" width="400" alt="Step 1 and 2: AI reads both files, code verifies, then rejects or computes.">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/read-check-dark.png">
+  <img src="docs/img/read-check-light.png" width="400" alt="Step 1 and 2: AI reads both files, code verifies, then rejects or computes.">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/explain-dark.svg">
-  <img src="docs/img/explain-light.svg" width="400" alt="Step 3: AI explains code&#x27;s numbers; a number guard swaps in a template if AI adds a figure.">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/explain-dark.png">
+  <img src="docs/img/explain-light.png" width="400" alt="Step 3: AI explains code&#x27;s numbers; a number guard swaps in a template if AI adds a figure.">
 </picture>
 
 Every finding is labelled one of two ways:
@@ -71,8 +71,8 @@ Both corpora (document sets plus their rules) are **synthetic**: fictional compa
 | $31.50 "large package" charge the contract doesn't price | judgment_required | yes | (needs a human) |
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/overbilling-dark.svg">
-  <img src="docs/img/overbilling-light.svg" width="400" alt="Overbilling by type: duplicate billing $26.11, wrong fuel % $23.40, missed discount $22.43, address correction billed twice $18.00, line total arithmetic $10.00, residential fee $4.85, billed weight $3.99, wrong zone $3.64.">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/overbilling-dark.png">
+  <img src="docs/img/overbilling-light.png" width="400" alt="Overbilling by type: duplicate billing $26.11, wrong fuel % $23.40, missed discount $22.43, address correction billed twice $18.00, line total arithmetic $10.00, residential fee $4.85, billed weight $3.99, wrong zone $3.64.">
 </picture>
 
 **10 of 10 caught, 0 false alarms, all 8 amounts correct to the cent.** Total verifiable overbilling found: **$112.42** on ~$11.5k of invoices.

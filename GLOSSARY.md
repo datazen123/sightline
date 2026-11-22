@@ -3,8 +3,8 @@
 Every acronym and specialist term used in this repository, in plain language.
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/img/glossary-dark.svg">
-  <img src="docs/img/glossary-light.svg" width="400" alt="Glossary map: real estate, shipping, software and data, AI, and project terms.">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/glossary-dark.png">
+  <img src="docs/img/glossary-light.png" width="400" alt="Glossary map: real estate, shipping, software and data, AI, and project terms.">
 </picture>
 
 ## Real estate (corpus #1)

@@ -52,8 +52,8 @@ Errors: `400` unknown corpus (a document set plus its rules), `413` too many/too
 ## Troubleshooting
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="img/runbook-dark.svg">
-  <img src="img/runbook-light.svg" width="400" alt="Troubleshooting: find the message the audit printed, apply the matching fix.">
+  <source media="(prefers-color-scheme: dark)" srcset="img/runbook-dark.png">
+  <img src="img/runbook-light.png" width="400" alt="Troubleshooting: find the message the audit printed, apply the matching fix.">
 </picture>
 
 

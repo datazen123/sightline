@@ -8,8 +8,8 @@ where evidence is thin, it says so.
 ## 1. The problem shape
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="img/problem-dark.svg">
-  <img src="img/problem-light.svg" width="400" alt="Governing document and follow-on documents are compared; outcomes are verifiable finding, judgment_required, or clean.">
+  <source media="(prefers-color-scheme: dark)" srcset="img/problem-dark.png">
+  <img src="img/problem-light.png" width="400" alt="Governing document and follow-on documents are compared; outcomes are verifiable finding, judgment_required, or clean.">
 </picture>
 
 

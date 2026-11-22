@@ -6,10 +6,17 @@ no zooming and no sideways scrolling. Body text is 20 units and nothing is
 smaller than 17. Each diagram is written twice: a light and a dark version,
 which the Markdown files pick between with <picture>.
 
-Run:  python docs/img/make_diagrams.py   (needs Pillow, only to measure text)
+Each SVG is also exported as a PNG at 3x (1200 px wide). The Markdown uses the
+PNGs: the GitHub mobile app renders neither Mermaid nor SVG reliably, but every
+GitHub client shows a PNG.
+
+Run:  python docs/img/make_diagrams.py   (needs Pillow to measure text and
+      rsvg-convert, from librsvg, to export the PNGs)
 """
 from __future__ import annotations
 
+import shutil
+import subprocess
 from html import escape
 from pathlib import Path
 
@@ -480,5 +487,13 @@ DIAGRAMS = {
 if __name__ == "__main__":
     for name, fn in DIAGRAMS.items():
         for theme in THEMES:
-            (OUT / f"{name}-{theme}.svg").write_text(fn(theme), encoding="utf-8")
-    print(f"wrote {len(DIAGRAMS) * len(THEMES)} files to {OUT}")
+            svg = OUT / f"{name}-{theme}.svg"
+            svg.write_text(fn(theme), encoding="utf-8")
+            if shutil.which("rsvg-convert"):
+                subprocess.run(["rsvg-convert", "-w", "1200", str(svg), "-o",
+                                str(svg.with_suffix(".png"))], check=True)
+                if shutil.which("convert"):  # ImageMagick: 128-colour PNG, ~70% smaller
+                    png = str(svg.with_suffix(".png"))
+                    subprocess.run(["convert", png, "-strip", "-dither", "None",
+                                    "-colors", "128", "PNG8:" + png], check=True)
+    print(f"wrote {len(DIAGRAMS) * len(THEMES)} diagrams to {OUT}")

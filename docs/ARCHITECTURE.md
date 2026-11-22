@@ -3,8 +3,8 @@
 > New to a term? Every acronym is spelled out the first time it appears, and all of them live in the [Glossary](../GLOSSARY.md).
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="img/architecture-dark.svg">
-  <img src="img/architecture-light.svg" width="400" alt="Architecture: CLI, API or web page feed ingest, mapping, corpus plugin, explainer, then DuckDB or BigQuery.">
+  <source media="(prefers-color-scheme: dark)" srcset="img/architecture-dark.png">
+  <img src="img/architecture-light.png" width="400" alt="Architecture: CLI, API or web page feed ingest, mapping, corpus plugin, explainer, then DuckDB or BigQuery.">
 </picture>
 
 ## The one rule
