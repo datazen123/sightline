@@ -6,10 +6,10 @@
 
 > New to a term? Every acronym is spelled out the first time it appears, and all of them live in the [Glossary](GLOSSARY.md).
 
-```mermaid
-flowchart LR
-  A["Your files: contract + invoices"] --> B["AI reads the layout"] --> C["Code checks every line"] --> D["AI explains, can't add numbers"] --> E["Findings: $ amount, file + row, dispute note"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/overview-dark.png">
+  <img src="docs/img/overview-light.png" width="400" alt="How Sightline works: your files, AI reads, code checks, AI explains, findings.">
+</picture>
 
 | Who | Does | Never does |
 | --- | --- | --- |
@@ -36,33 +36,15 @@ A new domain is a config file, a data folder and a plugin file (see [`corpora/_t
 
 ## How it works
 
-```mermaid
-flowchart LR
-    subgraph In["Your files"]
-        C["Contract / governing doc (PDF)"]
-        I["Invoices / statements (CSV, XLSX, PDF)"]
-    end
-    subgraph Read["AI reads (small, cheap model)"]
-        M["Proposes column mapping and stated totals"]
-        T["Extracts terms with page citations"]
-    end
-    subgraph Check["Code checks (no AI)"]
-        V{"Types, row count and totals reconcile? Citations found on page?"}
-        R["Rules compute every dollar (Decimal, to the cent)"]
-    end
-    subgraph Explain["AI explains (larger model)"]
-        E["Plain-English explanation and dispute note"]
-        G{"Any number not produced by code?"}
-    end
-    C --> T --> V
-    I --> M --> V
-    V -- "no: reject and log" --> X["Rejected mappings log"]
-    V -- yes --> R --> E --> G
-    G -- yes --> TPL["Use code template instead"]
-    G -- no --> F["Findings: amount, file + row/page, dispute note"]
-    TPL --> F
-    F --> DB[("DuckDB locally, BigQuery in production")]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/read-check-dark.png">
+  <img src="docs/img/read-check-light.png" width="400" alt="Step 1 and 2: AI reads both files, code verifies, then rejects or computes.">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/explain-dark.png">
+  <img src="docs/img/explain-light.png" width="400" alt="Step 3: AI explains code&#x27;s numbers; a number guard swaps in a template if AI adds a figure.">
+</picture>
 
 Every finding is labelled one of two ways:
 
@@ -88,17 +70,10 @@ Both corpora (document sets plus their rules) are **synthetic**: fictional compa
 | Residential fee on a consignee that looks like a business | judgment_required | yes | (needs a human) |
 | $31.50 "large package" charge the contract doesn't price | judgment_required | yes | (needs a human) |
 
-```mermaid
-pie showData title Overbilling found by type (USD, synthetic invoices)
-  "Duplicate billing" : 26.11
-  "Wrong fuel %" : 23.40
-  "Missed discount" : 22.43
-  "Address correction billed twice" : 18.00
-  "Line total arithmetic" : 10.00
-  "Residential fee" : 4.85
-  "Billed weight" : 3.99
-  "Wrong zone" : 3.64
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/overbilling-dark.png">
+  <img src="docs/img/overbilling-light.png" width="400" alt="Overbilling by type: duplicate billing $26.11, wrong fuel % $23.40, missed discount $22.43, address correction billed twice $18.00, line total arithmetic $10.00, residential fee $4.85, billed weight $3.99, wrong zone $3.64.">
+</picture>
 
 **10 of 10 caught, 0 false alarms, all 8 amounts correct to the cent.** Total verifiable overbilling found: **$112.42** on ~$11.5k of invoices.
 

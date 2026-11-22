@@ -7,17 +7,10 @@ corpus is still corpus #1 and its design choices carried over.
 
 > New to a term? Every acronym is spelled out the first time it appears, and all of them live in the [Glossary](../GLOSSARY.md).
 
-```mermaid
-flowchart LR
-  U["User question"] --> O["Orchestrator"]
-  O --> X["Extractor: deal sheet + citations"]
-  O --> K["Risk agent: cross-checks"]
-  O --> Q["Investor Q&A"]
-  O --> S["Summarizer: memos"]
-  K --> V{"Provable from the documents?"}
-  V -- yes --> F["verifiable finding + citation"]
-  V -- no --> H["judgment_required: handed to a human"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="img/agents-dark.png">
+  <img src="img/agents-light.png" width="400" alt="Agent map: user question to orchestrator, which routes to extractor, investor Q&amp;A, summarizer or risk agent; risk checks end as verifiable or judgment_required.">
+</picture>
 
 ## 1. What this is
 

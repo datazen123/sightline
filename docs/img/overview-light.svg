@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 680" width="400" height="680" role="img" aria-label="How Sightline works: your files, AI reads, code checks, AI explains, findings.">
+<title>How Sightline works: your files, AI reads, code checks, AI explains, findings.</title>
+<rect width="400" height="680" rx="16" fill="#FFFFFF"/>
+<text x="14.0" y="40.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#0F172A" text-anchor="start">How it works in 60 seconds</text>
+<rect x="14.0" y="54.0" width="55.5" height="30.0" rx="15" fill="#EDE9FE" stroke="#6D28D9" stroke-width="1.5"/>
+<circle cx="29" cy="69" r="5" fill="#6D28D9"/>
+<text x="40.0" y="75.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#0F172A" text-anchor="start">AI</text>
+<rect x="77.5" y="54.0" width="83.8" height="30.0" rx="15" fill="#DCFCE7" stroke="#15803D" stroke-width="1.5"/>
+<circle cx="92.484375" cy="69" r="5" fill="#15803D"/>
+<text x="103.5" y="75.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#0F172A" text-anchor="start">Code</text>
+<rect x="14.0" y="100.0" width="372.0" height="50.0" rx="12" fill="#F1F5F9" stroke="#475569" stroke-width="2"/>
+<text x="200.0" y="134.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Your files: contract + invoices</text>
+<rect x="14.0" y="190.0" width="372.0" height="76.0" rx="12" fill="#EDE9FE" stroke="#6D28D9" stroke-width="2"/>
+<text x="28.0" y="217.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#6D28D9" text-anchor="start">1 · AI</text>
+<text x="200.0" y="250.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Reads the layout</text>
+<rect x="14.0" y="306.0" width="372.0" height="102.0" rx="12" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+<text x="28.0" y="333.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#15803D" text-anchor="start">2 · CODE</text>
+<text x="200.0" y="366.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Checks every line and computes</text>
+<text x="200.0" y="392.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">every dollar</text>
+<rect x="14.0" y="448.0" width="372.0" height="102.0" rx="12" fill="#EDE9FE" stroke="#6D28D9" stroke-width="2"/>
+<text x="28.0" y="475.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#6D28D9" text-anchor="start">3 · AI</text>
+<text x="200.0" y="508.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Explains in plain English. Can&#x27;t</text>
+<text x="200.0" y="534.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">add numbers</text>
+<rect x="14.0" y="590.0" width="372.0" height="76.0" rx="12" fill="#FEF3C7" stroke="#B45309" stroke-width="2"/>
+<text x="200.0" y="624.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Findings: $ amount · file + row ·</text>
+<text x="200.0" y="650.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">dispute note</text>
+<path d="M200.0,150.0 L200.0,181.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M193.0,179.0 L207.0,179.0 L200.0,190.0 Z" fill="#64748B"/>
+<path d="M200.0,266.0 L200.0,297.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M193.0,295.0 L207.0,295.0 L200.0,306.0 Z" fill="#64748B"/>
+<path d="M200.0,408.0 L200.0,439.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M193.0,437.0 L207.0,437.0 L200.0,448.0 Z" fill="#64748B"/>
+<path d="M200.0,550.0 L200.0,581.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M193.0,579.0 L207.0,579.0 L200.0,590.0 Z" fill="#64748B"/>
+</svg>

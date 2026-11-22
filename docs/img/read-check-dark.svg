@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 734" width="400" height="734" role="img" aria-label="Step 1 and 2: AI reads both files, code verifies, then rejects or computes.">
+<title>Step 1 and 2: AI reads both files, code verifies, then rejects or computes.</title>
+<rect width="400" height="734" rx="16" fill="#0D1117"/>
+<text x="14.0" y="40.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#E6EDF3" text-anchor="start">Steps 1–2: read, then</text>
+<text x="14.0" y="66.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#E6EDF3" text-anchor="start">verify</text>
+<text x="14.0" y="90.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#9DA7B3" text-anchor="start">Nothing the AI reads is trusted until code</text>
+<text x="14.0" y="114.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#9DA7B3" text-anchor="start">confirms it.</text>
+<rect x="14.0" y="128.0" width="55.5" height="30.0" rx="15" fill="#2A2045" stroke="#B794F6" stroke-width="1.5"/>
+<circle cx="29" cy="143" r="5" fill="#B794F6"/>
+<text x="40.0" y="149.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#E6EDF3" text-anchor="start">AI</text>
+<rect x="77.5" y="128.0" width="83.8" height="30.0" rx="15" fill="#12301F" stroke="#4ADE80" stroke-width="1.5"/>
+<circle cx="92.484375" cy="143" r="5" fill="#4ADE80"/>
+<text x="103.5" y="149.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#E6EDF3" text-anchor="start">Code</text>
+<rect x="169.3" y="128.0" width="119.9" height="30.0" rx="15" fill="#3B1416" stroke="#F87171" stroke-width="1.5"/>
+<circle cx="184.328125" cy="143" r="5" fill="#F87171"/>
+<text x="195.3" y="149.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#E6EDF3" text-anchor="start">Rejected</text>
+<rect x="14.0" y="174.0" width="180.0" height="76.0" rx="12" fill="#1F2630" stroke="#8B949E" stroke-width="2"/>
+<text x="104.0" y="221.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Contract (PDF)</text>
+<rect x="206.0" y="174.0" width="180.0" height="76.0" rx="12" fill="#1F2630" stroke="#8B949E" stroke-width="2"/>
+<text x="296.0" y="208.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Invoices (CSV ·</text>
+<text x="296.0" y="234.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Excel · PDF)</text>
+<rect x="14.0" y="296.0" width="180.0" height="102.0" rx="12" fill="#2A2045" stroke="#B794F6" stroke-width="2"/>
+<text x="28.0" y="323.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#B794F6" text-anchor="start">AI · SMALL</text>
+<text x="104.0" y="356.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Finds terms +</text>
+<text x="104.0" y="382.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">page citations</text>
+<rect x="206.0" y="296.0" width="180.0" height="102.0" rx="12" fill="#2A2045" stroke="#B794F6" stroke-width="2"/>
+<text x="220.0" y="323.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#B794F6" text-anchor="start">AI · SMALL</text>
+<text x="296.0" y="356.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Maps columns</text>
+<text x="296.0" y="382.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">+ stated totals</text>
+<rect x="14.0" y="444.0" width="372.0" height="128.0" rx="6" fill="#12301F" stroke="#4ADE80" stroke-width="2.5"/>
+<path d="M368.0,453.0 L377.0,462.0 L368.0,471.0 L359.0,462.0 Z" fill="#4ADE80"/>
+<text x="28.0" y="471.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#4ADE80" text-anchor="start">CODE CHECK</text>
+<text x="200.0" y="504.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#E6EDF3" text-anchor="middle">Types, row counts and totals</text>
+<text x="200.0" y="530.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#E6EDF3" text-anchor="middle">reconcile? Citations on the</text>
+<text x="200.0" y="556.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#E6EDF3" text-anchor="middle">page?</text>
+<rect x="14.0" y="618.0" width="180.0" height="102.0" rx="12" fill="#3B1416" stroke="#F87171" stroke-width="2"/>
+<text x="104.0" y="665.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Rejected +</text>
+<text x="104.0" y="691.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">logged</text>
+<rect x="206.0" y="618.0" width="180.0" height="102.0" rx="12" fill="#12301F" stroke="#4ADE80" stroke-width="2"/>
+<text x="296.0" y="652.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">Rules compute</text>
+<text x="296.0" y="678.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">every dollar,</text>
+<text x="296.0" y="704.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#E6EDF3" text-anchor="middle">to the cent</text>
+<path d="M104.0,250.0 L104.0,287.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M97.0,285.0 L111.0,285.0 L104.0,296.0 Z" fill="#8B949E"/>
+<path d="M296.0,250.0 L296.0,287.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M289.0,285.0 L303.0,285.0 L296.0,296.0 Z" fill="#8B949E"/>
+<path d="M104.0,398.0 L104.0,421.0 L200.0,421.0 L200.0,435.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M193.0,433.0 L207.0,433.0 L200.0,444.0 Z" fill="#8B949E"/>
+<path d="M296.0,398.0 L296.0,421.0 L200.0,421.0 L200.0,435.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M193.0,433.0 L207.0,433.0 L200.0,444.0 Z" fill="#8B949E"/>
+<path d="M200.0,572.0 L200.0,595.0 L104.0,595.0 L104.0,609.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M97.0,607.0 L111.0,607.0 L104.0,618.0 Z" fill="#8B949E"/>
+<rect x="83.1" y="581.0" width="41.8" height="28.0" rx="14" fill="#0D1117" stroke="#8B949E" stroke-width="1.5"/>
+<text x="104.0" y="601.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#9DA7B3" text-anchor="middle">no</text>
+<path d="M200.0,572.0 L200.0,595.0 L296.0,595.0 L296.0,609.0" fill="none" stroke="#8B949E" stroke-width="2.5"/>
+<path d="M289.0,607.0 L303.0,607.0 L296.0,618.0 Z" fill="#8B949E"/>
+<rect x="270.6" y="581.0" width="50.7" height="28.0" rx="14" fill="#0D1117" stroke="#8B949E" stroke-width="1.5"/>
+<text x="296.0" y="601.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#9DA7B3" text-anchor="middle">yes</text>
+</svg>

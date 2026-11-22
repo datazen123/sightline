@@ -7,14 +7,10 @@ where evidence is thin, it says so.
 
 ## 1. The problem shape
 
-```mermaid
-flowchart LR
-  R["Governing document: contract, PPM, MSA"] --> C{"Do the numbers agree?"}
-  P["Documents that should follow it: invoices, pro forma, statements"] --> C
-  C -- "no, provably" --> V["verifiable finding with amount"]
-  C -- "unclear" --> J["judgment_required: a person decides"]
-  C -- yes --> OK["clean"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="img/problem-dark.png">
+  <img src="img/problem-light.png" width="400" alt="Governing document and follow-on documents are compared; outcomes are verifiable finding, judgment_required, or clean.">
+</picture>
 
 
 Many workflows share one structure: a pile of documents, a handful of
