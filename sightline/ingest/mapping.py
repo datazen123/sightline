@@ -10,7 +10,8 @@
      - every row parses to the declared type,
      - every enum value maps to an allowed value,
      - row count equals the stated line count,
-     - the sum of the total column equals the stated invoice total (to the cent).
+     - the sum of the total column equals the stated invoice total (to the cent),
+       with credit and adjustment lines counted as negative money, not skipped.
 3. Only a mapping that passes every check produces trusted rows. Rejected
    mappings are logged with reasons (``runs/rejected_mappings.jsonl``).
 """
@@ -218,6 +219,37 @@ def propose_llm(table: RawTable, schema: CanonicalSchema) -> Mapping:
 # ---------------------------------------------------------------------------
 # Deterministic validation
 # ---------------------------------------------------------------------------
+_CREDIT_SUFFIX = re.compile(r"\s*(CR|CREDIT)\.?$", re.IGNORECASE)
+
+
+def parse_money(raw: str) -> Decimal:
+    """Parse an amount the way billing exports actually write it.
+
+    Credits and adjustments are negative money, and exports spell that several
+    ways: ``-12.50``, ``($12.50)``, ``12.50-``, ``12.50 CR``, ``-$12.50``,
+    ``$-12.50`` or a Unicode minus. All of them come back negative. Anything
+    that still isn't a number raises, so the row is rejected rather than
+    silently dropped; a dropped credit line would make the computed total
+    disagree with the stated invoice total, which the reconciliation catches.
+    """
+    v = raw.strip().replace("−", "-").replace(",", "").replace("$", "").replace(" ", "")
+    neg = False
+    if v.startswith("(") and v.endswith(")"):
+        neg, v = True, v[1:-1]
+    m = _CREDIT_SUFFIX.search(v)
+    if m:
+        neg, v = True, v[: m.start()]
+    if v.endswith("-") and not v.startswith("-"):
+        neg, v = True, v[:-1]
+    try:
+        d = Decimal(v)
+    except InvalidOperation as e:
+        raise ValueError(f"not a number: {raw!r}") from e
+    if not d.is_finite():
+        raise ValueError(f"not a number: {raw!r}")
+    return -abs(d) if neg else d
+
+
 def _parse(value: str, spec: FieldSpec, vmap: dict[str, str]) -> Any:
     v = value.strip()
     if v == "":
@@ -229,10 +261,7 @@ def _parse(value: str, spec: FieldSpec, vmap: dict[str, str]) -> Any:
     if spec.type == "int":
         return int(v.replace(",", ""))
     if spec.type == "decimal":
-        try:
-            return Decimal(v.replace(",", "").replace("$", ""))
-        except InvalidOperation as e:
-            raise ValueError(f"not a number: {v!r}") from e
+        return parse_money(v)
     if spec.type == "date":
         for fmt in ("%Y-%m-%d", "%m/%d/%Y", "%d-%b-%Y"):
             try:
@@ -294,7 +323,7 @@ def validate(table: RawTable, schema: CanonicalSchema, mapping: Mapping) -> Vali
     if ct.get("total_amount") is None:
         errors.append("no stated total found; cannot verify totals")
     else:
-        stated = Decimal(str(ct["total_amount"]).replace(",", ""))
+        stated = parse_money(str(ct["total_amount"]))
         computed = sum((row[schema.total_field] or Decimal(0) for row in rows), Decimal(0))
         if abs(computed - stated) > Decimal("0.005"):
             errors.append(f"sum of '{schema.total_field}' {computed} != stated total {stated}")

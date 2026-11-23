@@ -104,3 +104,45 @@ def test_ingest_raises_when_nothing_validates():
     with pytest.raises(m.MappingRejected):
         m.ingest_table(t, SCHEMA, rej)
     assert rej and rej[0]["file"] == "t.csv"
+
+
+# --- credits and adjustments -------------------------------------------------
+@pytest.mark.parametrize("raw,want", [
+    ("12.50", "12.50"), ("-12.50", "-12.50"), ("($12.50)", "-12.50"), ("12.50-", "-12.50"),
+    ("12.50 CR", "-12.50"), ("12.50cr", "-12.50"), ("-$12.50", "-12.50"), ("$-12.50", "-12.50"),
+    ("−12.50", "-12.50"), ("$1,234.56", "1234.56"), ("(1,234.56)", "-1234.56"),
+])
+def test_parse_money_reads_credit_formats(raw, want):
+    assert m.parse_money(raw) == D(want)
+
+
+@pytest.mark.parametrize("raw", ["twelve", "12.5.0", "NaN", "--", "()"])
+def test_parse_money_rejects_non_numbers(raw):
+    with pytest.raises(ValueError):
+        m.parse_money(raw)
+
+
+def credit_table(rows, stated):
+    return RawTable("t.csv", ["Tracking", "Total"], [RawRow(f"row {i + 2}", list(r)) for i, r in enumerate(rows)],
+                    f"Line Count: {len(rows)}\nInvoice Total: ${stated}")
+
+
+def test_credit_lines_count_toward_the_reconciled_total():
+    # 40.00 of charges, a 12.50 credit written two different ways: net 15.00
+    t = credit_table([("A1", "20.00"), ("A2", "20.00"), ("A3", "(12.50)"), ("A4", "12.50 CR")], "15.00")
+    res = m.validate(t, SCHEMA, m.Mapping({"tracking_number": "Tracking", "total": "Total"}, {},
+                                          m.extract_control_totals(t.context_text), "test"))
+    assert res.ok, res.errors
+    assert sum(r["total"] for r in res.rows) == D("15.00")
+
+
+def test_dropping_credit_lines_fails_reconciliation():
+    # A reader that treats credits as "not costs" and skips them computes 40.00
+    # against a stated 15.00. The check must refuse that, not accept it.
+    full = credit_table([("A1", "20.00"), ("A2", "20.00"), ("A3", "-12.50"), ("A4", "-12.50")], "15.00")
+    charges_only = RawTable(full.source_file, full.header, [r for r in full.rows if "-" not in r.values[1]],
+                            "Line Count: 4\nInvoice Total: $15.00")
+    res = m.validate(charges_only, SCHEMA, m.Mapping({"tracking_number": "Tracking", "total": "Total"}, {},
+                                                     m.extract_control_totals(charges_only.context_text), "test"))
+    assert not res.ok
+    assert any("row count" in e for e in res.errors) and any("stated total" in e for e in res.errors)
