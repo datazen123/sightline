@@ -54,3 +54,16 @@ def test_gri_scenario():
     rows = gri_impact(D("5.9"))
     assert {r["service"] for r in rows} == {"GROUND", "2DAY", "NEXTDAY"}
     assert all(D("5.5") < r["delta_pct"] < D("6.3") for r in rows)
+
+
+def test_dim_scenario():
+    from sightline.cli import dim_impact
+
+    same = dim_impact(139)
+    assert same["contract_divisor"] == 139
+    assert all(r["delta_usd"] == 0 and r["reweighed"] == 0 for r in same["rows"])
+    looser = dim_impact(166)
+    assert all(r["delta_usd"] <= 0 for r in looser["rows"])
+    assert sum(r["reweighed"] for r in looser["rows"]) > 0
+    tighter = dim_impact(120)
+    assert all(r["delta_usd"] >= 0 for r in tighter["rows"])

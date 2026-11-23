@@ -51,6 +51,8 @@ Every finding is labelled one of two ways:
 - **verifiable**: provably wrong from the documents (e.g. a residential fee on a line the invoice itself marks commercial). Comes with a dollar amount.
 - **judgment_required**: needs a person (e.g. a residential fee on a "Design Studio LLC, Ste 210", which might be a home business). The system shows the evidence and says what to check, and never gives a verdict.
 
+Credit and adjustment lines are money too. Amounts written as `-12.50`, `(12.50)`, `12.50-` or `12.50 CR` all parse as negative, and they count toward the invoice total that must reconcile to the cent. A reader (human or model) that skips credits because they "aren't costs" produces a total that disagrees with the invoice, and the file is rejected instead of quietly misreported.
+
 ## What it caught
 
 Both corpora (document sets plus their rules) are **synthetic**: fictional companies, generated figures, and errors planted on purpose so the results can be scored. Numbers below come from `uv run python eval/run_eval.py`.
@@ -108,10 +110,20 @@ That installs dependencies on first run, audits the bundled synthetic invoices, 
 uv run python eval/run_eval.py              # precision/recall table for both corpora
 uv run python eval/stress_parcel.py         # what happens with unfriendly inputs
 uv run sightline scenario gri --pct 5.9     # impact of a 5.9% carrier rate increase, by service
+uv run sightline scenario dim --divisor 166 # what a better DIM (dimensional weight) divisor is worth
 uv run sightline serve                      # API on http://127.0.0.1:8000 (POST /audit, GET /health)
 cd web && npm install && npm run build      # then `sightline serve` also serves the upload page
 cp .env.example .env                        # add ANTHROPIC_API_KEY or GEMINI_API_KEY to use a real model
 ```
+
+### Try it on the 2027 rate season
+
+The three US national carriers each announced an average **5.9%** increase for 2027: UPS on Dec 21, 2026 ([Supply Chain Dive](https://www.supplychaindive.com/news/ups-plans-59-rate-increase-on-dec-21/872751/)), FedEx on Jan 4, 2027 ([FedEx surcharge changes](https://www.fedex.com/content/dam/fedex/us-united-states/services/surcharge_and_fee_changes_2027.pdf)) and USPS on Jan 17, 2027, pending approval ([USPS](https://about.usps.com/newsroom/national-releases/2026/1112-usps-recommends-shipping-price-adjustments-for-2027.htm)). Two levers worth pricing before renewal:
+
+| Command | Sample result (299 unique shipments) |
+| --- | --- |
+| `sightline scenario gri --pct 5.9` | what the increase adds, by service, after contract discounts |
+| `sightline scenario dim --divisor 166` | contract divisor 139 → 166 re-weighs 66 shipments and saves **$158.48** (1.5%) |
 
 ## Built on the usual startup stack
 
@@ -123,15 +135,24 @@ cp .env.example .env                        # add ANTHROPIC_API_KEY or GEMINI_AP
 | UI (user interface) | React (web UI library) + Vite (web build tool) page to upload files and browse findings with citations |
 | CI (continuous integration) | GitHub Actions (GitHub's automation service): lint, tests, both evals (evaluations against known answers; AI calls replaced by offline stand-ins when no key is set) |
 
+## What I'd build next
+
+| Next | Why it matters | How it fits this design |
+| --- | --- | --- |
+| **Price-floor learning** for carriers that accept or decline a shipper's target price per label | The savings go to whoever knows each carrier's floor by lane, day and package type | Code records every accepted and declined label; a model estimates the floor; a guard keeps every bid inside contract terms |
+| **New carrier layouts without new code** (regional carriers bought through label marketplaces) | More carriers means more invoice formats | Already the mapping path: AI proposes columns, reconciliation decides |
+| **Negotiation pack** from audit data | Rate-renewal asks backed by the shipper's own numbers | GRI and DIM scenarios above, extended per zone and per surcharge |
+| **AI contract extractor** feeding the existing term verification | Real agreements vary more than the synthetic one | Same rule as everywhere: the model proposes, the citation check disposes |
+
 ## Known limits
 
-- **Synthetic data only.** Real carrier invoices include credits, multi-piece shipments, international duties, weekly fuel tables and dozens of accessorials (add-on fees) this demo does not model.
+- **Synthetic data only.** Credit lines are parsed and reconciled, but matching each credit to the charge it reverses isn't built. Multi-piece shipments, international duties, weekly fuel tables and dozens of accessorials (add-on fees) are not modelled.
 - **Contract terms are read by a clause and table parser**, then verified against the page text. An AI contract extractor feeding the same verification step is the obvious next step; it isn't built yet.
 - **The offline column mapper only knows header names it has synonyms for.** Unfamiliar layouts need an AI key, or they get rejected (safely).
 - **The CRE fact list is fixed** (fees, occupancy, cap rates, NOI (net operating income), price). Facts outside it are not cross-checked.
 - **Judgment items depend on the model.** Offline, they come from a recorded file; with a key, what gets surfaced will vary from run to run.
 - **Single-tenant demo.** No auth, no multi-user, files are processed in a temp directory and not kept. Don't upload confidential data to a shared deployment.
-- **GRI (general rate increase) scenario** applies one percentage to every list rate. Real increases differ by service and zone.
+- **GRI (general rate increase) scenario** applies one percentage to every list rate. Real increases differ by service and zone. The **DIM scenario** changes only the divisor; carriers may change minimums or surcharges alongside it.
 
 ## Repo map
 

@@ -32,6 +32,8 @@ jobs:
         run: uv run python eval/stress_parcel.py
       - name: GRI scenario smoke test
         run: uv run sightline scenario gri --pct 5.9
+      - name: DIM scenario smoke test
+        run: uv run sightline scenario dim --divisor 166
 
   web:
     runs-on: ubuntu-latest

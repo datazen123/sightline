@@ -3,6 +3,7 @@
     sightline corpora                         list installed corpus plugins
     sightline audit parcel_invoices [FILES]   run an audit (defaults to sample data)
     sightline scenario gri --pct 5.9          re-price sample invoices under a rate increase
+    sightline scenario dim --divisor 166      re-price sample invoices under a different DIM divisor
     sightline serve                           start the FastAPI service
 """
 
@@ -12,6 +13,7 @@ import argparse
 import json
 import sys
 from collections import defaultdict
+from dataclasses import replace
 from decimal import Decimal
 from pathlib import Path
 
@@ -82,7 +84,53 @@ def gri_impact(pct: Decimal, data_dir: Path | None = None) -> list[dict]:
     return rows
 
 
+def _unique_shipments(data_dir: Path | None = None):
+    from sightline.core.plugins import get_plugin
+
+    plugin = get_plugin("parcel_invoices")
+    files = sorted((data_dir or plugin.config.data_dir).iterdir())
+    contract, invoices = plugin._split(files)
+    terms = plugin.load_terms(contract)
+    seen: set[str] = set()
+    ships = []
+    for ln in plugin.load_lines(invoices):
+        if ln["line_type"] != "SHIP" or ln["tracking_number"] in seen:
+            continue
+        seen.add(ln["tracking_number"])
+        ships.append(ln)
+    return terms, ships
+
+
+def dim_impact(divisor: int, data_dir: Path | None = None) -> dict:
+    """Contract-correct cost of each unique shipment with the contract's DIM
+    (dimensional weight) divisor vs with ``divisor``. A larger divisor means a
+    lower DIM weight, so light, bulky boxes bill at fewer pounds."""
+    if not 100 <= divisor <= 250:
+        raise ValueError("divisor must be between 100 and 250")
+    terms, ships = _unique_shipments(data_dir)
+    alt = replace(terms, dim_divisor=divisor)
+    agg = defaultdict(lambda: {"shipments": 0, "reweighed": 0, "current": Decimal(0), "after": Decimal(0)})
+    for ln in ships:
+        zone = terms.zone_for(ln["dest_zip"])
+        dims = (ln["actual_weight"], ln["length"], ln["width"], ln["height"])
+        w_now = terms.billable_weight(*dims)
+        w_new = alt.billable_weight(*dims)
+        now = terms.net_transport(ln["service"], zone, w_now)
+        new = terms.net_transport(ln["service"], zone, w_new)
+        a = agg[ln["service"]]
+        a["shipments"] += 1
+        a["reweighed"] += int(w_new != w_now)
+        a["current"] += now + terms.fuel(now)
+        a["after"] += new + terms.fuel(new)
+    rows = [{"service": svc, "shipments": a["shipments"], "reweighed": a["reweighed"],
+             "current_usd": a["current"], "after_usd": a["after"], "delta_usd": a["after"] - a["current"]}
+            for svc, a in sorted(agg.items())]
+    return {"contract_divisor": terms.dim_divisor, "divisor": divisor, "rows": rows}
+
+
 def cmd_scenario(args) -> int:
+    if args.kind == "dim":
+        return _print_dim(args)
     pct = Decimal(str(args.pct))
     rows = gri_impact(pct)
     if args.json:
@@ -104,6 +152,26 @@ def cmd_scenario(args) -> int:
     return 0
 
 
+def _print_dim(args) -> int:
+    res = dim_impact(args.divisor)
+    if args.json:
+        print(json.dumps(res, default=str, indent=2))
+        return 0
+    print(f"DIM divisor {res['contract_divisor']} (contract) vs {res['divisor']}, rates, discounts and fuel % unchanged.")
+    print("Base: contract-correct price of each unique shipment in the sample invoices (freight + fuel).\n")
+    print(f"{'service':<10}{'shipments':>10}{'reweighed':>11}{'current $':>13}{'after $':>13}{'delta $':>11}")
+    tot = defaultdict(Decimal)
+    for r in res["rows"]:
+        print(f"{r['service']:<10}{r['shipments']:>10}{r['reweighed']:>11}{r['current_usd']:>13,.2f}"
+              f"{r['after_usd']:>13,.2f}{r['delta_usd']:>11,.2f}")
+        for k in ("shipments", "reweighed", "current_usd", "after_usd", "delta_usd"):
+            tot[k] += r[k]
+    print(f"{'TOTAL':<10}{tot['shipments']:>10}{tot['reweighed']:>11}{tot['current_usd']:>13,.2f}"
+          f"{tot['after_usd']:>13,.2f}{tot['delta_usd']:>11,.2f}")
+    print("\nOnly shipments whose DIM weight exceeds their actual weight change price.")
+    return 0
+
+
 def cmd_serve(args) -> int:
     import uvicorn
 
@@ -122,8 +190,9 @@ def main(argv: list[str] | None = None) -> int:
     a.add_argument("--no-store", action="store_true")
     a.set_defaults(fn=cmd_audit)
     s = sub.add_parser("scenario")
-    s.add_argument("kind", choices=["gri"])
-    s.add_argument("--pct", type=float, default=5.9)
+    s.add_argument("kind", choices=["gri", "dim"])
+    s.add_argument("--pct", type=float, default=5.9, help="gri: rate increase in percent")
+    s.add_argument("--divisor", type=int, default=166, help="dim: DIM divisor to compare against the contract")
     s.add_argument("--json", action="store_true")
     s.set_defaults(fn=cmd_scenario)
     v = sub.add_parser("serve")
