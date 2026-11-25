@@ -478,10 +478,23 @@ def d_overbilling(t):
                  "residential fee $4.85, billed weight $3.99, wrong zone $3.64.")
 
 
+def d_floor(t):
+    return flow(t, "Target-price bidding: bid from the learned level, accept or decline, then step the level down or up.",
+                "Target-price bidding", "One staircase per lane (zone) and weekday. Code only; no model.",
+                ["code"], [
+                    [{"text": "Next label: lane + weekday + contract price", "kind": "input"}],
+                    [{"text": "Bid = learned level x contract price, always below contract", "kind": "code",
+                      "tag": "Code"}],
+                    [{"text": "Carrier accepts or declines the target price", "kind": "input", "decision": True}],
+                    [{"text": "Pay the bid. Two in a row: bid 1% lower", "kind": "code"},
+                     {"text": "Pay contract. Next bid 2% higher", "kind": "reject"}],
+                ], labels={3: ["accept", "decline"]})
+
+
 DIAGRAMS = {
     "overview": d_overview, "read-check": d_read_check, "explain": d_explain,
     "overbilling": d_overbilling, "glossary": d_glossary, "architecture": d_architecture,
-    "runbook": d_runbook, "agents": d_agents, "problem": d_problem,
+    "runbook": d_runbook, "agents": d_agents, "problem": d_problem, "floor": d_floor,
 }
 
 if __name__ == "__main__":

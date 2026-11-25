@@ -4,6 +4,7 @@
     sightline audit parcel_invoices [FILES]   run an audit (defaults to sample data)
     sightline scenario gri --pct 5.9          re-price sample invoices under a rate increase
     sightline scenario dim --divisor 166      re-price sample invoices under a different DIM divisor
+    sightline scenario floor --labels 3000    target-price bidding: fixed discount vs a floor learner
     sightline serve                           start the FastAPI service
 """
 
@@ -128,9 +129,42 @@ def dim_impact(divisor: int, data_dir: Path | None = None) -> dict:
     return {"contract_divisor": terms.dim_divisor, "divisor": divisor, "rows": rows}
 
 
+def floor_impact(labels: int = 3000, seed: int = 7, data_dir: Path | None = None) -> dict:
+    """Replay the sample shipments as target-price labels against a synthetic
+    carrier and compare bidding strategies (see corpora/parcel_invoices/floor.py)."""
+    from corpora.parcel_invoices.floor import Segment, band, simulate
+
+    terms, ships = _unique_shipments(data_dir)
+    pool = []
+    for ln in ships:
+        zone = terms.zone_for(ln["dest_zip"])
+        wt = terms.billable_weight(ln["actual_weight"], ln["length"], ln["width"], ln["height"])
+        net = terms.net_transport(ln["service"], zone, wt)
+        pool.append((Segment(ln["service"], zone, "", band(wt)), net + terms.fuel(net)))
+    return simulate(pool, labels=labels, seed=seed)
+
+
+def _print_floor(args) -> int:
+    res = floor_impact(args.labels, args.seed)
+    if args.json:
+        print(json.dumps(res, default=str, indent=2))
+        return 0
+    print(f"{res['labels']:,} target-price labels drawn from the sample shipments (seed {res['seed']}).")
+    print("Synthetic carrier: hidden floors vary by zone, weekday and weight band; a decline costs the contract rate.\n")
+    print(f"{'strategy':<34}{'paid $':>12}{'saved $':>11}{'saved %':>9}{'accepted %':>12}")
+    for r in res["rows"]:
+        acc = f"{r['accept_pct']}" if r["accept_pct"] is not None else "-"
+        print(f"{r['strategy']:<34}{r['paid_usd']:>12,.2f}{r['saved_usd']:>11,.2f}{r['saved_pct']:>9}{acc:>12}")
+    print(f"\nThe learner captured {res['learner_share_of_possible_pct']}% of the savings that perfect knowledge "
+          "of every floor would give. It never bids at or above contract.")
+    return 0
+
+
 def cmd_scenario(args) -> int:
     if args.kind == "dim":
         return _print_dim(args)
+    if args.kind == "floor":
+        return _print_floor(args)
     pct = Decimal(str(args.pct))
     rows = gri_impact(pct)
     if args.json:
@@ -190,9 +224,11 @@ def main(argv: list[str] | None = None) -> int:
     a.add_argument("--no-store", action="store_true")
     a.set_defaults(fn=cmd_audit)
     s = sub.add_parser("scenario")
-    s.add_argument("kind", choices=["gri", "dim"])
+    s.add_argument("kind", choices=["gri", "dim", "floor"])
     s.add_argument("--pct", type=float, default=5.9, help="gri: rate increase in percent")
     s.add_argument("--divisor", type=int, default=166, help="dim: DIM divisor to compare against the contract")
+    s.add_argument("--labels", type=int, default=3000, help="floor: number of target-price labels to simulate")
+    s.add_argument("--seed", type=int, default=7, help="floor: random seed for the synthetic carrier")
     s.add_argument("--json", action="store_true")
     s.set_defaults(fn=cmd_scenario)
     v = sub.add_parser("serve")

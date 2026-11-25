@@ -51,7 +51,7 @@ Every finding is labelled one of two ways:
 - **verifiable**: provably wrong from the documents (e.g. a residential fee on a line the invoice itself marks commercial). Comes with a dollar amount.
 - **judgment_required**: needs a person (e.g. a residential fee on a "Design Studio LLC, Ste 210", which might be a home business). The system shows the evidence and says what to check, and never gives a verdict.
 
-Credit and adjustment lines are money too. Amounts written as `-12.50`, `(12.50)`, `12.50-` or `12.50 CR` all parse as negative, and they count toward the invoice total that must reconcile to the cent. A reader (human or model) that skips credits because they "aren't costs" produces a total that disagrees with the invoice, and the file is rejected instead of quietly misreported.
+Credit and adjustment lines are money too. Amounts written as `-12.50`, `(12.50)`, `12.50-` or `12.50 CR` all parse as negative, and they count toward the invoice total that must reconcile to the cent. A reader (human or model) that skips credits because they "aren't costs" produces a total that disagrees with the invoice, and the file is rejected instead of quietly misreported. Credits also net against duplicate charges on the same tracking number, so a duplicate the carrier already refunded is never claimed twice.
 
 ## What it caught
 
@@ -124,6 +124,29 @@ The three US national carriers each announced an average **5.9%** increase for 2
 | --- | --- |
 | `sightline scenario gri --pct 5.9` | what the increase adds, by service, after contract discounts |
 | `sightline scenario dim --divisor 166` | contract divisor 139 → 166 re-weighs 66 shipments and saves **$158.48** (1.5%) |
+| `sightline scenario floor --labels 3000` | target-price bidding: the floor learner saves **11.7%** vs 9.4% for a fixed 10%-below bid (details below) |
+
+### Target-price bidding: learning each carrier's floor
+
+Some carriers now let a shipper name a target price per label. The carrier accepts it if it has spare capacity, or declines and the contract rate applies. The carrier never says what its lowest price is, so the savings go to whoever can work out that floor by lane and day, label after label.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/floor-dark.png">
+  <img src="docs/img/floor-light.png" width="400" alt="Target-price bidding: bid from the learned level, accept or decline, then step the level down or up.">
+</picture>
+
+A decline costs the whole discount, so the learner ([`floor.py`](corpora/parcel_invoices/floor.py)) is a staircase per lane (zone) and weekday: two accepts in a row and it bids 1% of contract lower; any decline and it steps 2% back up. A new lane starts from its zone's level. It never bids at or above contract, and it re-adapts on its own when capacity tightens (tested).
+
+Replaying the 299 sample shipments as 3,000 labels against a **synthetic** carrier whose hidden floors vary by zone and weekday (`seed 7`; seeds 1–3 give the same picture):
+
+| Strategy | Paid | Saved | Accepted |
+| --- | ---: | ---: | ---: |
+| Always pay contract | $106,693.29 | — | — |
+| Fixed bid 10% below contract | $96,673.20 | $10,020.09 (9.4%) | 92.7% |
+| **Floor learner** | **$94,208.64** | **$12,484.65 (11.7%)** | 85.5% |
+| Knew every floor (upper limit) | $88,683.01 | $18,010.28 (16.9%) | — |
+
+The learner gets about 25% more savings than the fixed bid and about 70% of what perfect knowledge of every floor would give. A model is not needed to learn the floor; where one helps is explaining why a lane's level moved.
 
 ## Built on the usual startup stack
 
@@ -139,20 +162,20 @@ The three US national carriers each announced an average **5.9%** increase for 2
 
 | Next | Why it matters | How it fits this design |
 | --- | --- | --- |
-| **Price-floor learning** for carriers that accept or decline a shipper's target price per label | The savings go to whoever knows each carrier's floor by lane, day and package type | Code records every accepted and declined label; a model estimates the floor; a guard keeps every bid inside contract terms |
+| **Live target-price bidding** against a carrier's rating API | The learner above, pointed at real accept/decline responses | Same staircase; outcomes logged to the warehouse so every bid is auditable |
 | **New carrier layouts without new code** (regional carriers bought through label marketplaces) | More carriers means more invoice formats | Already the mapping path: AI proposes columns, reconciliation decides |
 | **Negotiation pack** from audit data | Rate-renewal asks backed by the shipper's own numbers | GRI and DIM scenarios above, extended per zone and per surcharge |
 | **AI contract extractor** feeding the existing term verification | Real agreements vary more than the synthetic one | Same rule as everywhere: the model proposes, the citation check disposes |
 
 ## Known limits
 
-- **Synthetic data only.** Credit lines are parsed and reconciled, but matching each credit to the charge it reverses isn't built. Multi-piece shipments, international duties, weekly fuel tables and dozens of accessorials (add-on fees) are not modelled.
+- **Synthetic data only.** Credits are parsed, reconciled, and netted against duplicate charges by tracking number (a refunded duplicate is not claimed again); adjustments with no shipment on the invoices go to a person. Matching a credit to one specific accessorial on a multi-charge line isn't built. Multi-piece shipments, international duties, weekly fuel tables and dozens of accessorials (add-on fees) are not modelled.
 - **Contract terms are read by a clause and table parser**, then verified against the page text. An AI contract extractor feeding the same verification step is the obvious next step; it isn't built yet.
 - **The offline column mapper only knows header names it has synonyms for.** Unfamiliar layouts need an AI key, or they get rejected (safely).
 - **The CRE fact list is fixed** (fees, occupancy, cap rates, NOI (net operating income), price). Facts outside it are not cross-checked.
 - **Judgment items depend on the model.** Offline, they come from a recorded file; with a key, what gets surfaced will vary from run to run.
 - **Single-tenant demo.** No auth, no multi-user, files are processed in a temp directory and not kept. Don't upload confidential data to a shared deployment.
-- **GRI (general rate increase) scenario** applies one percentage to every list rate. Real increases differ by service and zone. The **DIM scenario** changes only the divisor; carriers may change minimums or surcharges alongside it.
+- **GRI (general rate increase) scenario** applies one percentage to every list rate. Real increases differ by service and zone. The **DIM scenario** changes only the divisor; carriers may change minimums or surcharges alongside it. The **floor scenario** runs against a synthetic carrier; real target-price programs can require minimum weekly volume and may change floors in ways this model does not capture.
 
 ## Repo map
 
