@@ -74,6 +74,7 @@ TITLES = {
     "repeated_address_correction": "Address correction fee billed more than once",
     "residential_fee_business_name": "Residential fee on what may be a business address",
     "unlisted_accessorial": "Charge not priced in the agreement",
+    "adjustment_without_shipment": "Adjustment for a shipment not on these invoices",
 }
 
 CONTRACT_CLAUSE = {
@@ -95,7 +96,9 @@ def template(f: Finding) -> tuple[str, str]:
     trk = ", ".join(f.keys.get("tracking_numbers", [])) or f.keys.get("invoice_id", "")
     expl = {
         "duplicate_tracking": f"{trk} appears on invoice {x.get('first_invoice')} and again on "
-                              f"{x.get('repeat_invoice')}. A package ships once, so the repeat ({amt}) is a duplicate.",
+                              f"{x.get('repeat_invoice')}. A package ships once, so the repeat is a duplicate"
+                              + (f"; {x.get('already_credited')} was already credited, so {amt} is still owed back."
+                                 if x.get("already_credited") else f" ({amt})."),
         "line_total_mismatch": f"The line total {x.get('billed_total')} is not the sum of its charges "
                                f"({x.get('sum_of_charges')}); difference {amt}.",
         "wrong_zone": f"Destination {x.get('dest_zip')} is zone {x.get('contract_zone')} in the zone chart, but "
@@ -117,6 +120,9 @@ def template(f: Finding) -> tuple[str, str]:
         "residential_fee_business_name": f"{trk} was classed residential and charged {x.get('residential_fee')}, but "
                       f"the consignee '{x.get('recipient')}' contains '{x.get('marker')}'. It may be a home business "
                       "(fee valid) or a commercial address (fee invalid). A human should check the address.",
+        "adjustment_without_shipment": f"{trk} has an adjustment ({x.get('kind')}) of {x.get('adjustment_total')} on "
+                      f"{x.get('invoice_id')}, but no shipment line for it is on the invoices provided. It may belong "
+                      "to an earlier invoice; check that invoice before paying the charge or counting the credit.",
         "unlisted_accessorial": f"{trk} carries a {x.get('charge')} charge '{x.get('description')}' that the agreement "
                       "does not price. Clause 1.9 defers unlisted accessorials to the carrier's service guide, so "
                       "whether it is valid depends on that guide and the package.",

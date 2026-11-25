@@ -67,3 +67,12 @@ def test_dim_scenario():
     assert sum(r["reweighed"] for r in looser["rows"]) > 0
     tighter = dim_impact(120)
     assert all(r["delta_usd"] >= 0 for r in tighter["rows"])
+
+
+def test_floor_scenario():
+    from sightline.cli import floor_impact
+
+    res = floor_impact(labels=1500, seed=7)
+    saved = {r["strategy"]: r["saved_usd"] for r in res["rows"]}
+    assert saved["Always pay contract"] == 0
+    assert saved["Floor learner"] > saved["Fixed bid 10% below contract"] > 0

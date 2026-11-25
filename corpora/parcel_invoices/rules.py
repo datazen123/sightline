@@ -37,21 +37,54 @@ def _ship(lines):
     return [ln for ln in lines if ln.get("line_type", "SHIP") == "SHIP"]
 
 
+def credits_by_tracking(lines) -> dict[str, Decimal]:
+    """Credit already issued per tracking number: the sum of negative line
+    totals, as a positive amount. Credits arrive as ADJ lines or as negative
+    lines in a later invoice; either way they reduce what is still owed."""
+    out: dict[str, Decimal] = defaultdict(lambda: ZERO)
+    for ln in lines:
+        if ln["total"] < ZERO:
+            out[ln["tracking_number"]] += -ln["total"]
+    return out
+
+
 def check_duplicates(lines, terms: RateAgreement) -> list[Hit]:
     by_trk = defaultdict(list)
     for ln in _ship(lines):
         by_trk[ln["tracking_number"]].append(ln)
+    credited = credits_by_tracking(lines)
     hits = []
     for trk, group in by_trk.items():
         if len(group) < 2:
             continue
+        left = credited.get(trk, ZERO)  # credit not yet matched to a duplicate
         for dup in group[1:]:
-            hits.append(Hit("duplicate_tracking", "verifiable", "high", [group[0], dup], dup["total"],
+            applied = min(left, dup["total"])
+            left -= applied
+            still_owed = money(dup["total"] - applied)
+            if still_owed <= ZERO:
+                continue  # the carrier already refunded this duplicate; claiming it again would double-count
+            hits.append(Hit("duplicate_tracking", "verifiable", "high", [group[0], dup], still_owed,
                             {"tracking_number": trk, "times_billed": len(group),
                              "first_invoice": group[0].get("_invoice_id"), "repeat_invoice": dup.get("_invoice_id"),
-                             "duplicate_total": dup["total"]},
+                             "duplicate_total": dup["total"], "already_credited": applied},
                             {"tracking_numbers": [trk]}))
     return hits
+
+
+def check_orphan_adjustments(lines, terms: RateAgreement) -> list[Hit]:
+    """ADJ lines whose shipment is not on any invoice provided. Usually the
+    shipment was billed earlier, so a person should look before paying a
+    charge or counting a credit."""
+    shipped = {ln["tracking_number"] for ln in _ship(lines)}
+    return [
+        Hit("adjustment_without_shipment", "judgment_required", "low", [ln], None,
+            {"adjustment_total": ln["total"], "invoice_id": ln.get("_invoice_id"),
+             "kind": "credit" if ln["total"] < ZERO else "charge"},
+            {"tracking_numbers": [ln["tracking_number"]]})
+        for ln in lines
+        if ln.get("line_type") == "ADJ" and ln["tracking_number"] not in shipped
+    ]
 
 
 def check_line_totals(lines, terms) -> list[Hit]:
@@ -177,7 +210,7 @@ def check_unlisted(lines, terms: RateAgreement) -> list[Hit]:
 
 
 ALL_CHECKS = [check_duplicates, check_line_totals, check_transport, check_fuel,
-              check_residential, check_address_corrections, check_unlisted]
+              check_residential, check_address_corrections, check_unlisted, check_orphan_adjustments]
 
 
 def run_all(lines, terms: RateAgreement) -> list[Hit]:

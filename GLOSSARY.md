@@ -37,6 +37,10 @@ Every acronym and specialist term used in this repository, in plain language.
 | Rate agreement | — | The shipper's contract with a carrier: discounts, fees, rules. |
 | List rate | — | The carrier's published price before discounts. |
 | DIM weight | dimensional weight | Length × width × height ÷ a divisor (139 here). Carriers bill the larger of DIM and actual weight. |
+| Target price | — | A price the shipper names for one label; the carrier accepts it if it has spare capacity, otherwise the contract rate applies. |
+| Floor | carrier price floor | The lowest target price a carrier will accept for a lane and day. Carriers don't publish it. |
+| Staircase | adaptive step method | Bid lower after a run of accepts, higher after a decline; it settles just above the floor. |
+| Credit / ADJ line | adjustment line | A later line that refunds (negative) or adds to (positive) an earlier shipment's charges. |
 | Zone | — | Distance band between origin and destination (2–8). Higher zone, higher price. |
 | Fuel surcharge | — | A weekly percentage added to freight charges. |
 | Accessorial | — | Any add-on fee: residential delivery, address correction, large package. |

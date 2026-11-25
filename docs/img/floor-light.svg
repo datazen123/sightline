@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 656" width="400" height="656" role="img" aria-label="Target-price bidding: bid from the learned level, accept or decline, then step the level down or up.">
+<title>Target-price bidding: bid from the learned level, accept or decline, then step the level down or up.</title>
+<rect width="400" height="656" rx="16" fill="#FFFFFF"/>
+<text x="14.0" y="40.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="24" font-weight="700" fill="#0F172A" text-anchor="start">Target-price bidding</text>
+<text x="14.0" y="64.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#475569" text-anchor="start">One staircase per lane (zone) and</text>
+<text x="14.0" y="88.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="18" font-weight="400" fill="#475569" text-anchor="start">weekday. Code only; no model.</text>
+<rect x="14.0" y="102.0" width="83.8" height="30.0" rx="15" fill="#DCFCE7" stroke="#15803D" stroke-width="1.5"/>
+<circle cx="29" cy="117" r="5" fill="#15803D"/>
+<text x="40.0" y="123.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#0F172A" text-anchor="start">Code</text>
+<rect x="14.0" y="148.0" width="372.0" height="76.0" rx="12" fill="#F1F5F9" stroke="#475569" stroke-width="2"/>
+<text x="200.0" y="182.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Next label: lane + weekday +</text>
+<text x="200.0" y="208.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">contract price</text>
+<rect x="14.0" y="270.0" width="372.0" height="102.0" rx="12" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+<text x="28.0" y="297.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#15803D" text-anchor="start">CODE</text>
+<text x="200.0" y="330.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Bid = learned level x contract</text>
+<text x="200.0" y="356.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">price, always below contract</text>
+<rect x="14.0" y="418.0" width="372.0" height="76.0" rx="6" fill="#F1F5F9" stroke="#475569" stroke-width="2.5"/>
+<path d="M368.0,427.0 L377.0,436.0 L368.0,445.0 L359.0,436.0 Z" fill="#475569"/>
+<text x="200.0" y="452.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#0F172A" text-anchor="middle">Carrier accepts or declines</text>
+<text x="200.0" y="478.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="700" fill="#0F172A" text-anchor="middle">the target price</text>
+<rect x="14.0" y="540.0" width="180.0" height="102.0" rx="12" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+<text x="104.0" y="574.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Pay the bid.</text>
+<text x="104.0" y="600.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Two in a row:</text>
+<text x="104.0" y="626.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">bid 1% lower</text>
+<rect x="206.0" y="540.0" width="180.0" height="102.0" rx="12" fill="#FEE2E2" stroke="#B91C1C" stroke-width="2"/>
+<text x="296.0" y="574.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Pay contract.</text>
+<text x="296.0" y="600.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">Next bid 2%</text>
+<text x="296.0" y="626.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="20" font-weight="400" fill="#0F172A" text-anchor="middle">higher</text>
+<path d="M200.0,224.0 L200.0,261.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M193.0,259.0 L207.0,259.0 L200.0,270.0 Z" fill="#64748B"/>
+<path d="M200.0,372.0 L200.0,409.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M193.0,407.0 L207.0,407.0 L200.0,418.0 Z" fill="#64748B"/>
+<path d="M200.0,494.0 L200.0,517.0 L104.0,517.0 L104.0,531.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M97.0,529.0 L111.0,529.0 L104.0,540.0 Z" fill="#64748B"/>
+<rect x="63.3" y="503.0" width="81.5" height="28.0" rx="14" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5"/>
+<text x="104.0" y="523.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#475569" text-anchor="middle">accept</text>
+<path d="M200.0,494.0 L200.0,517.0 L296.0,517.0 L296.0,531.0" fill="none" stroke="#64748B" stroke-width="2.5"/>
+<path d="M289.0,529.0 L303.0,529.0 L296.0,540.0 Z" fill="#64748B"/>
+<rect x="252.5" y="503.0" width="87.1" height="28.0" rx="14" fill="#FFFFFF" stroke="#64748B" stroke-width="1.5"/>
+<text x="296.0" y="523.0" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="17" font-weight="700" fill="#475569" text-anchor="middle">decline</text>
+</svg>
